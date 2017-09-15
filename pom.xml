@@ -1,0 +1,113 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.bitplan.wikifrontend</groupId>
+	<artifactId>com.bitplan.wikifrontend</artifactId>
+	<version>0.0.1</version>
+	<name>MediaWiki Java RestFUL Frontend</name>
+	<description>Versatile Frontend - page filter and access control as base feature</description>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source />
+					<target />
+				</configuration>
+			</plugin>
+			<!-- create jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>com.bitplan.wikifrontend.rest.WikiFrontendServer</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- http://code.mycila.com/license-maven-plugin/ -->
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.9.0</version>
+				<configuration>
+					<header>src/etc/header.txt</header>
+					<strictCheck>true</strictCheck>
+					<includes>
+						<include>src/**/*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<!-- create fat jar -->
+			<!-- http://stackoverflow.com/a/16222971 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.bitplan.wikifrontend.rest.WikiFrontendServer</mainClass>
+						</manifest>
+					</archive>
+					<archiveBaseDirectory>${project.basedir}</archiveBaseDirectory>
+					<descriptor>src/assembly/depmerge.xml</descriptor>
+				</configuration>
+				<executions>
+					<execution>
+						<id>assemble-all</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<!-- simplerest -->
+		<dependency>
+			<groupId>com.bitplan.rest</groupId>
+			<artifactId>com.bitplan.simplerest</artifactId>
+			<version>0.0.9</version>
+		</dependency>
+		<!-- simplerest TestRestserver -->
+		<dependency>
+			<groupId>com.bitplan.rest</groupId>
+			<artifactId>com.bitplan.simplerest</artifactId>
+			<version>0.0.9</version>
+			<type>test-jar</type>
+		</dependency>
+		<!-- simplerest -api -->
+		<dependency>
+			<groupId>com.bitplan.rest</groupId>
+			<artifactId>com.bitplan.simplerest-api</artifactId>
+			<version>0.0.8</version>
+		</dependency>
+		<!-- rythm template support -->
+		<dependency>
+			<groupId>org.rythmengine</groupId>
+			<artifactId>rythm-engine</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<!-- mediawiki japi -->
+		<dependency>
+			<groupId>com.bitplan</groupId>
+			<artifactId>mediawiki-japi</artifactId>
+			<version>0.0.20</version>
+		</dependency>
+		<!-- HTML Cleaner for html parsing and xpath handling -->
+		<dependency>
+			<groupId>net.sourceforge.htmlcleaner</groupId>
+			<artifactId>htmlcleaner</artifactId>
+			<version>2.18</version>
+		</dependency>
+	</dependencies>
+</project>

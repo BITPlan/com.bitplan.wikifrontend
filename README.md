@@ -6,6 +6,9 @@ Mediawiki Content Management System frontend
 * repository: https://github.com/BITPlan/com.bitplan.wikifrontend
 * issues: https://github.com/BITPlan/com.bitplan.wikifrontend/issues
 
+### Documentation
+* http://wikicms.bitplan.com/
+
 ### License
 https://www.apache.org/licenses/LICENSE-2.0
 
