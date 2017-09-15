@@ -1,0 +1,23 @@
+# 
+# this is a java project using maven
+language: java
+# 
+# Java 8
+#  
+# to avoid Unsupported major.minor version 52.0 we need to specify the JDK to be used
+# https://stackoverflow.com/a/40208648/1497139
+jdk: oraclejdk8
+
+# switch off gpg handling
+# and split install and test phase of maven since xvfb will only
+# be available in test phase
+# let's first compile without tests
+install: mvn install -DskipTests=true -Dgpg.skip=true
+# do the tests separately 
+script: mvn test
+# we need a few extra packages to be installed
+# 1. the latest oracle-java8 is to be installed
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer

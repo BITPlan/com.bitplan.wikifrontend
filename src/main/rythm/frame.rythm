@@ -1,0 +1,23 @@
+@// Rythm template for the manager for the 
+@// Entity Attribute which is a DocElement
+@args() {
+  String content;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <style>
+body {
+    background-color: linen;
+}
+
+h1 {
+    color: #FF8000;
+    margin-left: 40px;
+}
+  </style>
+</head>
+<body>
+@(content)
+</body>
