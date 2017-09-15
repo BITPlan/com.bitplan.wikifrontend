@@ -100,15 +100,28 @@ public class BackendWiki extends Mediawiki {
 	}
 
 	/**
+	 * get the property file name for the given site
+	 * @param site
+	 * @return the property file name
+	 */
+	public static String getPropertyFileName(String site) {
+	  String user = System.getProperty("user.name");
+    String delim="";
+    if (!site.isEmpty()) {
+      delim="_";
+    }
+    String userPropertiesFileName = System.getProperty("user.home")
+        + "/.wikibackend/" + user + delim+site+".ini";
+    return userPropertiesFileName;
+	}
+	/**
 	 * Reads the properties from the configuration file
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
 	public Properties getConfigProperties() throws Exception {
-		String user = System.getProperty("user.name");
-		String userPropertiesFileName = System.getProperty("user.home")
-				+ "/.wikibackend/" + user + site+".ini";
+		String userPropertiesFileName=getPropertyFileName(site);
 		File propFile = new File(userPropertiesFileName);
 		Properties props = new Properties();
 		props.load(new FileReader(propFile));

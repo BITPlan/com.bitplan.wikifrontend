@@ -20,8 +20,11 @@
  */
 package com.bitplan.wikifrontend;
 
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.apache.commons.io.FileUtils;
 
 import com.bitplan.rest.RestServer;
 import com.bitplan.rest.test.TestRestServer;
@@ -47,6 +50,14 @@ public class TestBase extends TestRestServer {
 	 */
 	public BackendWiki getWiki() throws Exception {
 		if (wiki == null) {
+		  String user = System.getProperty("user.name");
+		  // is this the travis environment?
+	    if (user.equals("travis")) {
+	      // then prepare the wiki configuration
+	      File srcFile=new File("src/test/resources/travis.ini");
+	      File destFile=new File(BackendWiki.getPropertyFileName(""));
+	      FileUtils.copyFile(srcFile, destFile);
+	    }
 			// get the configured backend wiki
 			wiki = BackendWiki.getInstance();
 			startServer();
