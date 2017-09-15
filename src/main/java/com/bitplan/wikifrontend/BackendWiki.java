@@ -63,7 +63,7 @@ public class BackendWiki extends Mediawiki {
    * 
    * @throws Exception
    */
-  private BackendWiki() throws Exception {
+  BackendWiki() throws Exception {
     super();
     wikiProps = getConfigProperties();
     setWikiProperties(wikiProps);

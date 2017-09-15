@@ -30,12 +30,12 @@ import org.junit.runners.Suite;
  *
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ 
-	TestWikiFrontEndServer.class, TestWikiFrontEnd.class, TestWikiFrontEndFilter.class, TestRythm.class  
-})
+@Suite.SuiteClasses({ TestWikiFrontEndServer.class, TestWikiFrontEnd.class,
+    TestWikiFrontEndFilter.class, TestRythm.class, TestSMW.class })
 
 /**
- * dummmy testsuite class - config is done above via annotation 
+ * dummmy testsuite class - config is done above via annotation
+ * 
  * @author wf
  *
  */
