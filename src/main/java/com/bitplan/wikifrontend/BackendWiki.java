@@ -242,7 +242,8 @@ public class BackendWiki extends Mediawiki {
    * @throws Exception
    */
   public void logOut() throws Exception {
-    logout();
+    if (restricted)
+      logout();
     loggedIn = false;
     auth = null;
   }
@@ -437,7 +438,8 @@ public class BackendWiki extends Mediawiki {
     Map<String, Object> rootMap = new HashMap<String, Object>();
     String template = getTemplate(this.getFrame());
     rootMap.put("title", title);
-    rootMap.put("lang", this.siteinfo.getLang());
+    if (siteinfo!=null)
+      rootMap.put("lang", this.siteinfo.getLang());
     rootMap.put("content", html);
     String result = RythmContext.getInstance().render(template, rootMap);
     return result;
