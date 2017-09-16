@@ -20,13 +20,12 @@
  */
 package com.bitplan.wikifrontend;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
-import java.util.logging.Level;
+import java.util.Map;
+
 import org.junit.Test;
-import com.google.gson.Gson;
-import com.sun.jersey.api.client.ClientResponse;
 
 /**
  * test semantic MediaWiki access
@@ -35,70 +34,25 @@ import com.sun.jersey.api.client.ClientResponse;
  *
  */
 public class TestSMW extends TestBase {
-
-  public class Api {
-   Query query;
-  }
-  public class DataItem {
-    String type;
-    String item;
-  }
-  public class Property {
-    String property;
-    List <DataItem> dataitem;
-  }
-  
-  public class Query {
-    String subject;
-    String serializer;
-    String version;
-    List<Property> data;
-  }
   
   @Test
   public void testGetSMWData() throws Exception {
     String pageTitle = "Demo:Amsterdam";
     BackendWiki wiki = new BackendWiki();
     wiki.setSiteurl("https://www.semantic-mediawiki.org");
-    wiki.setScriptPath("/wiki");
+    wiki.setScriptPath("/w");
     wiki.wikiId="smw";
-    String queryUrl = "https://www.semantic-mediawiki.org/w/api.php";
-    String params="?action=browsebysubject&subject="+pageTitle+"&format=json";
-    String json;
-    ClientResponse response;
-    // decide for the method to use for api access
-    response = wiki.getPostResponse(queryUrl, params, null,null);
-    json = this.getResponseString(response);
-    //debug=true;
+    Map<String, Object> props = wiki.getSMWProperties(pageTitle);
+    assertEquals(18,props.size());
+    // debug=true;
     if (debug) {
-      json=json.replaceAll("\\{", "\n\\{");
-      LOGGER.log(Level.INFO, json);
-    }
-    assertNotNull(json);
-    Gson gson=new Gson();
-    Api api=gson.fromJson(json, Api.class);
-    assertNotNull(api);
-    Query query = api.query;
-    assertNotNull(query);
-    assertNotNull(query.subject);
-    assertNotNull(query.serializer);
-    assertNotNull(query.version);
-    assertNotNull(query.data);
-    assertEquals("Amsterdam#202#",query.subject);
-    assertEquals("SMW\\Serializers\\SemanticDataSerializer",query.serializer);
-    assertEquals("0.1",query.version);
-    List<Property> data = query.data;
-    assertEquals(18,data.size());
-    for (Property prop:data) {
-      assertNotNull(prop.dataitem);
-      for (DataItem item:prop.dataitem) {
-        assertNotNull(item.type);
-        assertNotNull(item.item);
-        // debug=true;
-        if (debug)
-          System.out.println(prop.property+" "+item.type+"="+item.item);
+      for (String key:props.keySet()) {
+        System.out.println(key+"="+props.get(key));
       }
     }
+    Integer rainDays=(Integer) props.get("Average_rainy_days");
+    assertNotNull(rainDays);
+    assertEquals(234,rainDays.intValue());
   }
 
 }

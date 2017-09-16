@@ -102,9 +102,7 @@ public class Page {
     BackendWiki wiki = BackendWiki.getInstance();
     ResponseBuilder rb = null;
     if (wiki.containsCategory(pageTitle, wiki.getCategory())) {
-      String html = wiki.getPageHtml(pageTitle);
-      html=wiki.fixMediaWikiHtml(html);
-      html=wiki.frame(pageTitle,html);
+      String html=wiki.frame(pageTitle);
       rb = Response.ok(html, MediaType.TEXT_HTML);
     } else {
       URI target = new URI(wiki.getSiteurl() + wiki.getScriptPath() + "index.php/"+pageTitle);

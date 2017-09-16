@@ -20,6 +20,8 @@
  */
 package com.bitplan.wikifrontend;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -34,7 +36,11 @@ import org.htmlcleaner.TagNode;
 
 import com.bitplan.mediawiki.japi.Mediawiki;
 import com.bitplan.mediawiki.japi.SiteInfo;
+import com.bitplan.mediawiki.japi.api.Api;
+import com.bitplan.mediawiki.japi.api.DataItem;
 import com.bitplan.mediawiki.japi.api.Login;
+import com.bitplan.mediawiki.japi.api.Property;
+import com.bitplan.mediawiki.japi.api.Query;
 import com.bitplan.mediawiki.japi.user.WikiUser;
 
 /**
@@ -51,6 +57,8 @@ public class BackendWiki extends Mediawiki {
   protected WikiUser wikiUser = null;
   private boolean loggedIn = false;
   boolean restricted = true;
+  // is this a semantic mediawiki?
+  boolean smw=false;
   private Login auth = null;
   private String category;
   private String homePage;
@@ -93,7 +101,7 @@ public class BackendWiki extends Mediawiki {
    * @param version
    * @throws Exception
    */
-  private BackendWiki(String siteurl, String pScriptPath, String wikiId,
+  public BackendWiki(String siteurl, String pScriptPath, String wikiId,
       String version) throws Exception {
     super(siteurl, pScriptPath);
     super.setVersion(version);
@@ -139,6 +147,7 @@ public class BackendWiki extends Mediawiki {
   public void setWikiProperties(Properties props) {
     this.setVersion(props.getProperty("wiki.base.version"));
     this.wikiId = props.getProperty("wiki.base.id");
+    this.smw=Boolean.parseBoolean(props.getProperty("wiki.smw","true"));
     this.restricted = Boolean
         .parseBoolean(props.getProperty("wiki.restricted", "true"));
     this.setSiteurl(props.getProperty("wiki.base.siteurl"));
@@ -426,21 +435,26 @@ public class BackendWiki extends Mediawiki {
   }
 
   /**
-   * frame the given html with the given title using the rythm template for this
+   * frame the html retrieved the given title using the rythm template for this
    * BackendWiki
    * 
    * @param title
-   * @param html
-   * @return
+   * @return the html code
    * @throws Exception
    */
-  public String frame(String title, String html) throws Exception {
+  public String frame(String pageTitle) throws Exception {
     Map<String, Object> rootMap = new HashMap<String, Object>();
     String template = getTemplate(this.getFrame());
-    rootMap.put("title", title);
-    if (siteinfo!=null)
+    rootMap.put("title", pageTitle);
+    if (siteinfo != null)
       rootMap.put("lang", this.siteinfo.getLang());
+    String html = getPageHtml(pageTitle);
+    html=fixMediaWikiHtml(html);
     rootMap.put("content", html);
+    if (this.smw) {
+      Map<String, Object> smwprops = this.getSMWProperties(pageTitle);
+      rootMap.put("smwprops", smwprops);
+    }
     String result = RythmContext.getInstance().render(template, rootMap);
     return result;
   }
@@ -470,6 +484,50 @@ public class BackendWiki extends Mediawiki {
       }
     }
     return pageContent;
+  }
+
+  /**
+   * get the semantic MediaWiki properties for the given pageTitle
+   * 
+   * @param pageTitle
+   *          - the pageTitle to get the properties for
+   * @return - a map of properties
+   * @throws Exception
+   */
+  public Map<String, Object> getSMWProperties(String pageTitle)
+      throws Exception {
+    Map<String, Object> props = new HashMap<String, Object>();
+    String params = "&subject=" + super.encode(pageTitle);
+    Api api = getActionResult("browsebysubject", params, null, null, "json");
+    if (api != null) {
+      Query query = api.getQuery();
+      List<Property> data = query.getData();
+      for (Property prop : data) {
+        assertNotNull(prop.getDataitem());
+        for (DataItem item : prop.getDataitem()) {
+          int typenum = Integer.parseInt(item.getType());
+          Object value = item.getItem();
+          switch (typenum) {
+          case 1: // Integer
+            value = Integer.parseInt(value.toString());
+            break;
+          case 2:
+            break;
+          case 4: // Boolean
+            break;
+          case 6: // Date
+            break;
+          case 9: // Page
+            break;
+          default:
+            LOGGER.log(Level.WARNING, "unknown type number " + typenum
+                + " for property " + prop.getProperty() + " value " + value);
+          }
+          props.put(prop.getProperty(), value);
+        }
+      }
+    }
+    return props;
   }
 
 }
