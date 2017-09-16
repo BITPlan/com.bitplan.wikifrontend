@@ -17,3 +17,4 @@ https://www.apache.org/licenses/LICENSE-2.0
 
 ### Version History
 * 2017-09-15 0.0.1 - initial release
+* 2017-09-16       - fixes #1
