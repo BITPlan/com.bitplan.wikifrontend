@@ -58,7 +58,7 @@ public class BackendWiki extends Mediawiki {
   private boolean loggedIn = false;
   boolean restricted = true;
   // is this a semantic mediawiki?
-  boolean smw=false;
+  boolean smw = false;
   private Login auth = null;
   private String category;
   private String homePage;
@@ -147,7 +147,7 @@ public class BackendWiki extends Mediawiki {
   public void setWikiProperties(Properties props) {
     this.setVersion(props.getProperty("wiki.base.version"));
     this.wikiId = props.getProperty("wiki.base.id");
-    this.smw=Boolean.parseBoolean(props.getProperty("wiki.smw","true"));
+    this.smw = Boolean.parseBoolean(props.getProperty("wiki.smw", "true"));
     this.restricted = Boolean
         .parseBoolean(props.getProperty("wiki.restricted", "true"));
     this.setSiteurl(props.getProperty("wiki.base.siteurl"));
@@ -449,7 +449,7 @@ public class BackendWiki extends Mediawiki {
     if (siteinfo != null)
       rootMap.put("lang", this.siteinfo.getLang());
     String html = getPageHtml(pageTitle);
-    html=fixMediaWikiHtml(html);
+    html = fixMediaWikiHtml(html);
     rootMap.put("content", html);
     if (this.smw) {
       Map<String, Object> smwprops = this.getSMWProperties(pageTitle);
@@ -470,17 +470,21 @@ public class BackendWiki extends Mediawiki {
    * get the template Code from the given pageTitle
    * 
    * @param pageTitle
-   * @return
+   * @return the templateCode
    * @throws Exception
    */
   public String getTemplate(String pageTitle) throws Exception {
     String pageContent = this.getPageContent(pageTitle);
-    final Matcher matcher = SOURCETAG_REGEX.matcher(pageContent);
-    if (matcher.find()) {
-      int matchend = matcher.end();
-      int sourcendpos = pageContent.indexOf(SOURCETAG_END);
-      if (sourcendpos > 0) {
-        pageContent = pageContent.substring(matchend, sourcendpos);
+    if (pageContent.isEmpty()) {
+      pageContent="error: template "+pageTitle+" is empty";
+    } else {
+      final Matcher matcher = SOURCETAG_REGEX.matcher(pageContent);
+      if (matcher.find()) {
+        int matchend = matcher.end();
+        int sourcendpos = pageContent.indexOf(SOURCETAG_END);
+        if (sourcendpos > 0) {
+          pageContent = pageContent.substring(matchend, sourcendpos);
+        }
       }
     }
     return pageContent;
