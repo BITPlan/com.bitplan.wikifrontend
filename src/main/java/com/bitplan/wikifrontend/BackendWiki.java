@@ -475,7 +475,7 @@ public class BackendWiki extends Mediawiki {
    */
   public String getTemplate(String pageTitle) throws Exception {
     String pageContent = this.getPageContent(pageTitle);
-    if (pageContent.isEmpty()) {
+    if ((pageContent==null) || pageContent.isEmpty()) {
       pageContent="error: template "+pageTitle+" is empty";
     } else {
       final Matcher matcher = SOURCETAG_REGEX.matcher(pageContent);
