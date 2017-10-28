@@ -22,6 +22,7 @@ package com.bitplan.wikifrontend;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +36,7 @@ public class SiteManager {
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.wikifrontend");
 
   private static SiteManager siteManager;
-  public Map<String, Site> siteMap = new HashMap<String, Site>();
+  public Map<String, Site> siteMap = new TreeMap<String, Site>();
 
   /**
    * singleton access for SiteManager
