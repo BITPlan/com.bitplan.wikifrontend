@@ -39,9 +39,11 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Site</th>
+            <th>Frontend</th>
+            <th>Backend</th>
             <th>Category</th>
             <th>HomePage</th>
+            <th>Frame</th>
           </tr>
         </thead>
         <tbody>
@@ -56,9 +58,11 @@
        } 
           <tr>
             <td>@(++index)</td>
-            <td><a href='@(url)'>@(site.getSiteName())</a></td>
+            <td><a href='@(wiki.getSiteUrl())'>@(site.getSiteName())</a></td>
+            <td><a href='@(url)'>@(url)</a></td>
             <td><a href='@(wurl)Category:@(wiki.getCategory())'>@(wiki.getCategory())</a></td>
             <td><a href='@(wurl)@(wiki.getHomePage())'>@(wiki.getHomePage())</a></td>
+            <td><a href='@(wurl)@(wiki.getFrame())'>@(wiki.getFrame())</a></td>
           </tr>
         }
         </tbody>

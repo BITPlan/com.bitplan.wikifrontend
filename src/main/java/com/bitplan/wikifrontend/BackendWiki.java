@@ -63,7 +63,8 @@ public class BackendWiki extends Mediawiki {
   private String homePage;
   private String frame;
   private SiteInfo siteinfo;
-  String site;
+  String site; // the name of the site
+  String siteUrl; // the frontend url of the site
 
   /**
    * no argument constructor
@@ -167,6 +168,7 @@ public class BackendWiki extends Mediawiki {
     this.setCategory(props.getProperty("wiki.frontend.category", "frontend"));
     this.setFrame(
         props.getProperty("wiki.frontend.frame", "MediaWiki:Frame.rythm"));
+    this.setSiteUrl(props.getProperty("site.url","http://wikicms.bitplan.com"));
   }
 
   /**
@@ -254,6 +256,14 @@ public class BackendWiki extends Mediawiki {
    */
   public void setFrame(String frame) {
     this.frame = frame;
+  }
+
+  public String getSiteUrl() {
+    return siteUrl;
+  }
+
+  public void setSiteUrl(String siteUrl) {
+    this.siteUrl = siteUrl;
   }
 
   /**
