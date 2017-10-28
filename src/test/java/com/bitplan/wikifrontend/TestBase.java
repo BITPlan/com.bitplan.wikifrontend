@@ -44,23 +44,28 @@ public class TestBase extends TestRestServer {
 	protected static Logger LOGGER = Logger.getLogger("com.bitplan.wikifrontend");
 
 	/**
-	 * get the wiki
+	 * get the wiki with the given siteName
 	 * @return
 	 * @throws Exception
 	 */
-	public BackendWiki getWiki() throws Exception {
-		if (wiki == null) {
+	public BackendWiki getWiki(String siteName) throws Exception {
+	  SiteManager sm=SiteManager.getInstance();
+	  Site site = sm.getSite(siteName);
+		if (site == null) {
 		  String user = System.getProperty("user.name");
 		  // is this the travis environment?
 	    if (user.equals("travis")) {
 	      // then prepare the wiki configuration
 	      File srcFile=new File("src/test/resources/travis.ini");
-	      File destFile=new File(BackendWiki.getPropertyFileName(""));
+	      File destFile=new File(BackendWiki.getPropertyFileName(siteName));
 	      FileUtils.copyFile(srcFile, destFile);
 	    }
 			// get the configured backend wiki
-			wiki = BackendWiki.getInstance();
-			startServer();
+	    sm.addSites(siteName); // add the unnamed default wiki
+			wiki = sm.getSite(siteName).getWiki();
+			if (sm.siteMap.size()==1) {
+			  startServer();
+			}
 		}
 		return wiki;
 	}
@@ -71,7 +76,6 @@ public class TestBase extends TestRestServer {
 		return result;
 	}
 
-	
 	public static void shutdownServer() throws Exception {
 		if (debug) {
 			LOGGER.log(Level.INFO, "Stopping server");

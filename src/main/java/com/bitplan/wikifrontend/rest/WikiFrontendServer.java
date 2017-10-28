@@ -20,11 +20,10 @@
  */
 package com.bitplan.wikifrontend.rest;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.bitplan.rest.RestServerImpl;
-import com.bitplan.wikifrontend.BackendWiki;
+import com.bitplan.wikifrontend.SiteManager;
 
 
 /**
@@ -64,12 +63,10 @@ public class WikiFrontendServer extends RestServerImpl {
      WikiFrontendServer rs=new WikiFrontendServer();
      rs.settings.parseArguments(args);
      String options = rs.settings.getOptions();
+     SiteManager sm=SiteManager.getInstance();
      if (options!=null) {
-       BackendWiki.site=options;     
-       LOGGER.log(Level.INFO,"setting site to "+BackendWiki.site);
+       sm.addSites(options);
      }
-     // initialize config setup
-     BackendWiki.getInstance();
      rs.startWebServer();
      
    } // main

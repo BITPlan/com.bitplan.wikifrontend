@@ -51,7 +51,6 @@ import com.bitplan.mediawiki.japi.user.WikiUser;
  */
 public class BackendWiki extends Mediawiki {
 
-  private static BackendWiki backendwiki;
   private Properties wikiProps = null;
   public String wikiId = null;
   protected WikiUser wikiUser = null;
@@ -64,15 +63,27 @@ public class BackendWiki extends Mediawiki {
   private String homePage;
   private String frame;
   private SiteInfo siteinfo;
-  public static String site = "";
+  String site;
 
   /**
-   * Constructor
+   * no argument constructor
    * 
    * @throws Exception
    */
   BackendWiki() throws Exception {
     super();
+  }
+
+  /**
+   * Constructor
+   * 
+   * @param -
+   *          the siteName to construct me from
+   * @throws Exception
+   */
+  BackendWiki(String siteName) throws Exception {
+    this();
+    this.site = siteName;
     wikiProps = getConfigProperties();
     setWikiProperties(wikiProps);
   }
@@ -423,18 +434,6 @@ public class BackendWiki extends Mediawiki {
   }
 
   /**
-   * 
-   * @return
-   * @throws Exception
-   */
-  public static BackendWiki getInstance() throws Exception {
-    if (backendwiki == null) {
-      backendwiki = new BackendWiki();
-    }
-    return backendwiki;
-  }
-
-  /**
    * frame the html retrieved the given title using the rythm template for this
    * BackendWiki
    * 
@@ -475,8 +474,8 @@ public class BackendWiki extends Mediawiki {
    */
   public String getTemplate(String pageTitle) throws Exception {
     String pageContent = this.getPageContent(pageTitle);
-    if ((pageContent==null) || pageContent.isEmpty()) {
-      pageContent="error: template "+pageTitle+" is empty";
+    if ((pageContent == null) || pageContent.isEmpty()) {
+      pageContent = "error: template " + pageTitle + " is empty";
     } else {
       final Matcher matcher = SOURCETAG_REGEX.matcher(pageContent);
       if (matcher.find()) {

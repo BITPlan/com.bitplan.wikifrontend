@@ -51,7 +51,7 @@ public class TestWikiFrontEndFilter extends TestBase {
 	 */
 	@Test
 	public void testContainsCategory() throws Exception {
-		BackendWiki wiki = getWiki();
+		BackendWiki wiki = getWiki("wiki");
 		String callPage = "Workdocumentation 2016-10-19";
 		String category = "frontend";
 		boolean result = wiki.containsCategory(callPage, category);
@@ -60,7 +60,7 @@ public class TestWikiFrontEndFilter extends TestBase {
 	
 	@Test
 	public void testRewrite() throws Exception {
-		BackendWiki wiki = getWiki();
+		BackendWiki wiki = getWiki("wiki");
 		wiki.setDebug(debug);
 		String html="<img alt=\"Joker.png\" src=\"/images/wiki/e/ef/Joker.png\" width=\"188\" height=\"277\" /></a>";
 		html=wiki.fixMediaWikiHtml(html);
@@ -73,7 +73,7 @@ public class TestWikiFrontEndFilter extends TestBase {
 	
 	@Test
 	public void testImageSrcSet() throws Exception {
-		BackendWiki wiki = getWiki();
+		BackendWiki wiki = getWiki("wiki");
 		String imgHtml="<img srcset='/images/wiki/thumb/9/92/800px-CPSA-F_Logo_mit_Text_300dpi.png/300px-800px-CPSA-F_Logo_mit_Text_300dpi.png 1.5x, /images/wiki/thumb/9/92/800px-CPSA-F_Logo_mit_Text_300dpi.png/400px-800px-CPSA-F_Logo_mit_Text_300dpi.png 2x'>";
 		String html=wiki.fixMediaWikiHtml(imgHtml);
 		if (debug) {
@@ -85,7 +85,7 @@ public class TestWikiFrontEndFilter extends TestBase {
 	
   @Test
   public void testVideoSource() throws Exception {
-    BackendWiki wiki = getWiki();
+    BackendWiki wiki = getWiki("wiki");
     String videoHtml="<video width=\"640\" height=\"360\" autobuffer=\"autobuffer\" controls=\"controls\" preload=\"auto\"><source src=\"/videos/chademoweibersbrunn.mp4\" type=\"video/mp4\" /><source src=\"/videos/chademoweibersbrunn.ogv\" type=\"video/ogg\" /><source src=\"/videos/chademoweibersbrunn.webm\" type=\"video/webm\" /></video>";
     String html=wiki.fixMediaWikiHtml(videoHtml);
     if (debug) {
@@ -102,7 +102,7 @@ public class TestWikiFrontEndFilter extends TestBase {
 	 */
 	@Test
 	public void testRemoveEditSections() throws Exception {
-		BackendWiki wiki = getWiki();
+		BackendWiki wiki = getWiki("wiki");
 		String span="<span class=\"mw-editsection\"><span class=\"mw-editsection-bracket\">[</span><a href=\"/index.php?title=Workdocumentation_2017-02-01_mf&amp;action=edit&amp;section=2\" title=\"Edit section: paid\">edit</a><span class=\"mw-editsection-bracket\">]</span>";
 		String html=wiki.fixMediaWikiHtml(span);
 		if (debug) {
@@ -113,7 +113,7 @@ public class TestWikiFrontEndFilter extends TestBase {
 	
 	@Test
 	public void testNoHead() throws Exception {
-		BackendWiki wiki = getWiki();
+		BackendWiki wiki = getWiki("wiki");
 		String html="<h1>Header</h1>";
 		html=wiki.fixMediaWikiHtml(html);
 		if (debug) {

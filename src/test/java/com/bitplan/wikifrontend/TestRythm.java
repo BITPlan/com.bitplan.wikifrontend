@@ -50,7 +50,7 @@ public class TestRythm extends TestBase {
 
 	@Test
 	public void testTemplate() throws Exception {
-		BackendWiki wiki = getWiki();
+		BackendWiki wiki = getWiki("wiki");
 		String template=wiki.getTemplate(wiki.getFrame());
 		if (debug) {
 			LOGGER.log(Level.INFO,template);

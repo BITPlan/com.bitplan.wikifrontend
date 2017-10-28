@@ -37,12 +37,21 @@ public class TestWikiFrontEndServer extends TestBase {
   @Test
   public void testInit() throws Exception {
     // this test does nothing just checking the Instance
-    assertNotNull(getWiki());
+    BackendWiki lwiki = getWiki("wiki");
+    assertNotNull(lwiki);
+    // check sites
+    SiteManager sm=SiteManager.getInstance();
+    assertEquals(1,sm.siteMap.size());
+    for (Site site:sm.siteMap.values()) {
+      assertNotNull(site.wiki);
+    }
   }
 
   @Test
   public void testExampleServer() throws Exception {
-    String answer = super.getResponseString("text/html", "/index.php/FrontendTest2016-12-19");
+    BackendWiki lwiki = getWiki("wiki");
+    assertNotNull(lwiki);
+    String answer = super.getResponseString("text/html", "/wiki/index.php/FrontendTest2016-12-19");
     if (debug) {
       LOGGER.log(Level.INFO,answer);
     }
@@ -53,7 +62,9 @@ public class TestWikiFrontEndServer extends TestBase {
   @Test
   public void testExampleHomePage() throws Exception {
     //debug=true;
-    String answer = super.getResponseString("text/html", "/");
+    BackendWiki lwiki = getWiki("wiki");
+    assertNotNull(lwiki);
+    String answer = super.getResponseString("text/html", "/wiki/");
     if (debug) {
       LOGGER.log(Level.INFO,answer);
     }

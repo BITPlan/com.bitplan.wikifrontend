@@ -49,7 +49,7 @@ public class TestWikiFrontEnd extends TestBase {
    */
   @Test
   public void testReadWikiConfiguration() throws Exception {
-    Properties props = getWiki().getConfigProperties();
+    Properties props = getWiki("wiki").getConfigProperties();
     assertNotNull(props);
     /*
      * assertEquals("http://partner.bitplan.com",
@@ -67,7 +67,7 @@ public class TestWikiFrontEnd extends TestBase {
     assertEquals("http://wiki.bitplan.com",
         props.getProperty("wiki.base.siteurl"));
     assertEquals("/", props.getProperty("wiki.base.scriptpath"));
-    assertEquals("1.23.5", props.getProperty("wiki.base.version"));
+    assertEquals("1.27.3", props.getProperty("wiki.base.version"));
     assertEquals("wiki", props.getProperty("wiki.base.id"));
     assertEquals("frontend", props.getProperty("wiki.frontend.category"));
     assertEquals("MediaWiki:Frame.rythm",
@@ -82,7 +82,7 @@ public class TestWikiFrontEnd extends TestBase {
   @Test()
   public void testMainPage() throws Exception {
     String callPage = "Main Page";
-    BackendWiki wiki = getWiki();
+    BackendWiki wiki = getWiki("wiki");
     String content = wiki.getPageContent(callPage);
     if (debug) {
       LOGGER.log(Level.INFO, content);
@@ -99,7 +99,7 @@ public class TestWikiFrontEnd extends TestBase {
   public void testQueryLoggedIn() throws Exception {
     String callPage = "Main Page";
     String expected = "BITPlan";
-    BackendWiki wiki = getWiki();
+    BackendWiki wiki = getWiki("wiki");
     wiki.login();
     String content = wiki.getPageContent(callPage);
     assertTrue(content.contains(expected));
@@ -114,7 +114,7 @@ public class TestWikiFrontEnd extends TestBase {
    */
   @Test
   public void testLogin() throws Exception {
-    BackendWiki wiki = getWiki();
+    BackendWiki wiki = getWiki("wiki");
     wiki.login();
     if (wiki.isRestricted()) {
       assertEquals("Success", wiki.getAuth().getResult());

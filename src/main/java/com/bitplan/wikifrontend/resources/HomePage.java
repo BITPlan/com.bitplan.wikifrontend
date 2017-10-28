@@ -22,18 +22,33 @@ package com.bitplan.wikifrontend.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
-import com.bitplan.wikifrontend.BackendWiki;
+import com.bitplan.rest.resources.TemplateResource;
+import com.bitplan.wikifrontend.Site;
+import com.bitplan.wikifrontend.SiteManager;
 
 @Path("/")
-public class HomePage {
+public class HomePage extends TemplateResource {
   @GET
-  public Response getPage() throws Exception {
-    BackendWiki wiki = BackendWiki.getInstance();
-    Page page=new Page();
-    String homePage=wiki.getHomePage();
-    Response result=page.getPage(homePage);
-    return result;
+  public Response getFrontEndServerHomePage() {
+    return super.templateResponse("serverhome.rythm");
+  }
+  
+  @GET
+  @Path("{siteName}")
+  public Response getPage(@PathParam("siteName") String siteName)
+      throws Exception {
+    SiteManager sm = SiteManager.getInstance();
+    Site site = sm.getSite(siteName);
+    if (site == null) {
+      return Page.unknownSite(siteName);
+    } else {
+      Page page = new Page();
+      String homePage = site.getWiki().getHomePage();
+      Response result = page.getPage(siteName,homePage);
+      return result;
+    }
   }
 }

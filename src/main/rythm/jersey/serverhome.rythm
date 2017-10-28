@@ -1,0 +1,72 @@
+@import java.text.SimpleDateFormat
+@import com.bitplan.wikifrontend.SiteManager
+@import com.bitplan.wikifrontend.Site
+@import com.bitplan.wikifrontend.BackendWiki
+@// header with title and tooltip
+@def header(String title, String tooltip, String comment) {
+<!DOCTYPE html>
+<html lang="en">
+<!-- https://de.wikipedia.org/wiki/Bootstrap_(Framework) -->
+<head>
+    <meta charset="utf-8"/>
+    <title>@(title)</title>
+
+    <!-- Einbinden des Bootstrap-Stylesheets -->
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- optional: Einbinden der jQuery-Bibliothek -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+
+    <!-- optional: Einbinden der Bootstrap-JavaScript-Plugins -->
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <section class="container">
+ }
+ @// footer
+ @def footer() {
+     </section>
+  </body>
+</html>
+}
+@// wikis
+@def wikis(SiteManager sm) {
+      <h2>Wikis</h2>
+
+      <!-- Tabelle mit abwechselnder Zellenhintergrundfarbe und Außenrahmen -->
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Site</th>
+            <th>Category</th>
+            <th>HomePage</th>
+          </tr>
+        </thead>
+        <tbody>
+        @{
+          int index=0;
+        }
+        @for (Site site:sm.siteMap.values()) {
+       @{
+         BackendWiki wiki=site.getWiki();
+         String url=wiki.getSiteurl()+wiki.getScriptPath();
+         String wurl=url+"index.php/"
+       } 
+          <tr>
+            <td>@(++index)</td>
+            <td><a href='@(url)'>@(site.getSiteName())</a></td>
+            <td><a href='@(wurl)Category:@(wiki.getCategory())'>@(wiki.getCategory())</a></td>
+            <td><a href='@(wurl)@(wiki.getHomePage())'>@(wiki.getHomePage())</a></td>
+          </tr>
+        }
+        </tbody>
+      </table>
+}
+@{
+   SiteManager sm=SiteManager.getInstance();
+}
+@header("WikiFrontend","","")
+@wikis(sm)
+@footer()

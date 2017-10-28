@@ -31,6 +31,8 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import com.bitplan.wikifrontend.BackendWiki;
+import com.bitplan.wikifrontend.Site;
+import com.bitplan.wikifrontend.SiteManager;
 
 /**
  * I represent a wiki Page
@@ -38,78 +40,108 @@ import com.bitplan.wikifrontend.BackendWiki;
  * @author wf
  *
  */
-@Path("/index.php/{pagename}")
+@Path("{siteName}/index.php/{pagename}")
 public class Page {
 
-	// http://stackoverflow.com/a/5323598/1497139
-	@Context
-	UriInfo uriInfo;
+  // http://stackoverflow.com/a/5323598/1497139
+  @Context
+  UriInfo uriInfo;
 
-	 @GET
-	 @Path("{subpage}")
-	 public Response getSubPage() throws Exception {
-	   return getPage();
-	 }
-	 
-	 @GET
-   @Path("{subpage}/{subsubpage}")
-   public Response getSubSubPage() throws Exception {
-     return getPage();
-   }
-	 
-	 @GET
-   @Path("{subpage}/{subsubpage}/{subsubsubpage}")
-   public Response getSubSubSubPage() throws Exception {
-     return getPage();
-   }
-	 
-	 @GET
-   @Path("{subpage}/{subsubpage}/{subsubsubpage}/{subsubsubsubpage}")
-   public Response getSubSubSubSubPage() throws Exception {
-     return getPage();
-   }
-	 
-	 @GET
-   @Path("{subpage}/{subsubpage}/{subsubsubpage}/{subsubsubsubpage}/{subsubsubsubpage}")
-   public Response getSubSubSubSubSubPage() throws Exception {
-     return getPage();
-   }
-	 
-	/**
-	 * get the Page - as html for frontend pages or redirect to the backend for
-	 * non frontend pages
-	 * 
-	 * @return the response for the page
-	 * @throws Exception
-	 */
-	@GET
-	public Response getPage() throws Exception {
-		String pageTitle = uriInfo.getPath();
-		if (pageTitle.contains("index.php/")) {
-		  pageTitle=pageTitle.replaceAll("index.php/", "");
-		}
-		Response result=getPage(pageTitle);
-		return result;
-	}
+  @GET
+  @Path("{subpage}")
+  public Response getSubPage() throws Exception {
+    return getPage();
+  }
 
-	/**
-	 * get the page with the given PageTitle
-	 * @param pageTitle
-	 * @return the Response
-	 * @throws Exception
-	 */
-  public Response getPage(String pageTitle) throws Exception {
-    BackendWiki wiki = BackendWiki.getInstance();
-    ResponseBuilder rb = null;
-    if (wiki.containsCategory(pageTitle, wiki.getCategory())) {
-      String html=wiki.frame(pageTitle);
-      rb = Response.ok(html, MediaType.TEXT_HTML);
-    } else {
-      URI target = new URI(wiki.getSiteurl() + wiki.getScriptPath() + "index.php/"+pageTitle);
-      rb = Response.seeOther(target);
+  @GET
+  @Path("{subpage}/{subsubpage}")
+  public Response getSubSubPage() throws Exception {
+    return getPage();
+  }
+
+  @GET
+  @Path("{subpage}/{subsubpage}/{subsubsubpage}")
+  public Response getSubSubSubPage() throws Exception {
+    return getPage();
+  }
+
+  @GET
+  @Path("{subpage}/{subsubpage}/{subsubsubpage}/{subsubsubsubpage}")
+  public Response getSubSubSubSubPage() throws Exception {
+    return getPage();
+  }
+
+  @GET
+  @Path("{subpage}/{subsubpage}/{subsubsubpage}/{subsubsubsubpage}/{subsubsubsubpage}")
+  public Response getSubSubSubSubSubPage() throws Exception {
+    return getPage();
+  }
+
+  /**
+   * get the Page - as html for frontend pages or redirect to the backend for
+   * non frontend pages
+   * 
+   * @return the response for the page
+   * @throws Exception
+   */
+  @GET
+  public Response getPage() throws Exception {
+    String path = uriInfo.getPath();
+    String[] parts = path.split("/");
+    if (parts.length<1)
+      return Response.status(500).entity("unsupported path"+path).build();
+    String pageTitle = "";
+    String delim="";
+    for (int i=1;i<parts.length;i++) {
+      pageTitle+=delim+parts[i];
+      delim="/";
     }
-    ;
-    return rb.build();
+    String site=parts[0];
+    if (pageTitle.contains("index.php/")) {
+      pageTitle = pageTitle.replaceAll("index.php/", "");
+    }
+    Response result = getPage(site,pageTitle);
+    return result;
+  }
+
+  /**
+   * get the page of the given site with the given PageTitle
+   * 
+   * @param siteName
+   *          - the name of the site to get the page for
+   * @param pageTitle
+   * @return the Response
+   * @throws Exception
+   */
+  public Response getPage(String siteName, String pageTitle) throws Exception {
+    SiteManager sm = SiteManager.getInstance();
+    Site site = sm.getSite(siteName);
+    if (site == null) {
+      return Page.unknownSite(siteName);
+    } else {
+      ResponseBuilder rb = null;
+      BackendWiki wiki = site.getWiki();
+      if (wiki.containsCategory(pageTitle, wiki.getCategory())) {
+        String html = wiki.frame(pageTitle);
+        rb = Response.ok(html, MediaType.TEXT_HTML);
+      } else {
+        URI target = new URI(wiki.getSiteurl() + wiki.getScriptPath()
+            + "index.php/" + pageTitle);
+        rb = Response.seeOther(target);
+      }
+      return rb.build();
+    }
+  }
+
+  /**
+   * create an unknownSite response for the given siteName
+   * 
+   * @param siteName
+   *          - the siteName
+   * @return - the 404 Response
+   */
+  public static Response unknownSite(String siteName) {
+    return Response.status(404).entity("unknown site " + siteName).build();
   }
 
 }
