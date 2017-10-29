@@ -20,8 +20,6 @@
  */
 package com.bitplan.wikifrontend;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
@@ -37,11 +35,11 @@ import org.htmlcleaner.TagNode;
 import com.bitplan.mediawiki.japi.Mediawiki;
 import com.bitplan.mediawiki.japi.SiteInfo;
 import com.bitplan.mediawiki.japi.api.Api;
-import com.bitplan.mediawiki.japi.api.DataItem;
 import com.bitplan.mediawiki.japi.api.Login;
 import com.bitplan.mediawiki.japi.api.Property;
 import com.bitplan.mediawiki.japi.api.Query;
 import com.bitplan.mediawiki.japi.user.WikiUser;
+import com.bitplan.smw.PropertyMap;
 
 /**
  * Mediawiki backend site to be controlled by a wiki Frontend RESTful server
@@ -168,7 +166,8 @@ public class BackendWiki extends Mediawiki {
     this.setCategory(props.getProperty("wiki.frontend.category", "frontend"));
     this.setFrame(
         props.getProperty("wiki.frontend.frame", "MediaWiki:Frame.rythm"));
-    this.setFrontendUrl(props.getProperty("frontend.url","http://wikicms.bitplan.com"));
+    this.setFrontendUrl(
+        props.getProperty("frontend.url", "http://wikicms.bitplan.com"));
   }
 
   /**
@@ -469,17 +468,20 @@ public class BackendWiki extends Mediawiki {
    */
   public String frame(String pageTitle) throws Exception {
     Map<String, Object> rootMap = new HashMap<String, Object>();
-    String template = getTemplate(this.getFrame());
     rootMap.put("title", pageTitle);
     if (siteinfo != null)
       rootMap.put("lang", this.siteinfo.getLang());
     String html = getPageHtml(pageTitle);
     html = fixMediaWikiHtml(html);
     rootMap.put("content", html);
+    String lframe=this.getFrame();
     if (this.smw) {
-      Map<String, Object> smwprops = this.getSMWProperties(pageTitle);
+      PropertyMap smwprops = this.getSMWProperties(pageTitle);
+      if (smwprops.getMap().containsKey("Frame"))
+        lframe=smwprops.get("Frame");
       rootMap.put("smwprops", smwprops);
     }
+    String template = getTemplate(lframe);
     String result = RythmContext.getInstance().render(template, rootMap);
     return result;
   }
@@ -523,40 +525,17 @@ public class BackendWiki extends Mediawiki {
    * @return - a map of properties
    * @throws Exception
    */
-  public Map<String, Object> getSMWProperties(String pageTitle)
+  public PropertyMap getSMWProperties(String pageTitle)
       throws Exception {
-    Map<String, Object> props = new HashMap<String, Object>();
+    PropertyMap result=new PropertyMap();
     String params = "&subject=" + super.encode(pageTitle);
     Api api = getActionResult("browsebysubject", params, null, null, "json");
     if (api != null) {
       Query query = api.getQuery();
       List<Property> data = query.getData();
-      for (Property prop : data) {
-        assertNotNull(prop.getDataitem());
-        for (DataItem item : prop.getDataitem()) {
-          int typenum = Integer.parseInt(item.getType());
-          Object value = item.getItem();
-          switch (typenum) {
-          case 1: // Integer
-            value = Integer.parseInt(value.toString());
-            break;
-          case 2:
-            break;
-          case 4: // Boolean
-            break;
-          case 6: // Date
-            break;
-          case 9: // Page
-            break;
-          default:
-            LOGGER.log(Level.WARNING, "unknown type number " + typenum
-                + " for property " + prop.getProperty() + " value " + value);
-          }
-          props.put(prop.getProperty(), value);
-        }
-      }
+      result.init(data);
     }
-    return props;
+    return result;
   }
 
 }

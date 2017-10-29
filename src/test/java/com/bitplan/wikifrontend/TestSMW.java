@@ -23,9 +23,9 @@ package com.bitplan.wikifrontend;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Map;
-
 import org.junit.Test;
+
+import com.bitplan.smw.PropertyMap;
 
 /**
  * test semantic MediaWiki access
@@ -42,17 +42,25 @@ public class TestSMW extends TestBase {
     wiki.setSiteurl("https://www.semantic-mediawiki.org");
     wiki.setScriptPath("/w");
     wiki.wikiId="smw";
-    Map<String, Object> props = wiki.getSMWProperties(pageTitle);
+    PropertyMap props = wiki.getSMWProperties(pageTitle);
     assertEquals(18,props.size());
-    // debug=true;
+    debug=true;
     if (debug) {
       for (String key:props.keySet()) {
         System.out.println(key+"="+props.get(key));
       }
     }
-    Integer rainDays=(Integer) props.get("Average_rainy_days");
+    Integer rainDays=props.getInteger("Average_rainy_days");
     assertNotNull(rainDays);
     assertEquals(234,rainDays.intValue());
+    Integer population=props.getInteger("Population");
+    assertEquals(783364,population.intValue());
+    String image=props.getString("Has_image");
+    if (debug) {
+      System.out.println("image is "+image);
+    }
+    assertEquals("Amsterdam_-_Waag.jpg",image);
+    
   }
 
 }
