@@ -30,7 +30,17 @@ import com.bitplan.wikifrontend.Site;
 import com.bitplan.wikifrontend.SiteManager;
 
 @Path("/")
-public class HomePage extends TemplateResource {
+/**
+ * server page with list of backends configuration options
+ * and site homepages
+ * 
+ * the path "/" lists the available sites with their backends
+ * the path "/{siteName}" shows the home page of a site
+ * the path "config/{siteName}" shows the configuration of a site
+ * @author wf
+ *
+ */
+public class ServerPage extends TemplateResource {
   @GET
   public Response getFrontEndServerHomePage() {
     return super.templateResponse("serverhome.rythm");
@@ -49,6 +59,20 @@ public class HomePage extends TemplateResource {
       String homePage = site.getWiki().getHomePage();
       Response result = page.getPage(siteName,homePage);
       return result;
+    }
+  }
+  
+  @GET
+  @Path("config/{siteName}")
+  public Response getConfig(@PathParam("siteName") String siteName)
+      throws Exception {
+    SiteManager sm = SiteManager.getInstance();
+    Site site = sm.getSite(siteName);
+    if (site == null) {
+      return Page.unknownSite(siteName);
+    } else {
+      rootMap.put("site", site);
+      return super.templateResponse("config.rythm");
     }
   }
 }

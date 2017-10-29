@@ -64,7 +64,7 @@ public class BackendWiki extends Mediawiki {
   private String frame;
   private SiteInfo siteinfo;
   String site; // the name of the site
-  String siteUrl; // the frontend url of the site
+  String frontendUrl; // the frontend url of the site
 
   /**
    * no argument constructor
@@ -168,7 +168,7 @@ public class BackendWiki extends Mediawiki {
     this.setCategory(props.getProperty("wiki.frontend.category", "frontend"));
     this.setFrame(
         props.getProperty("wiki.frontend.frame", "MediaWiki:Frame.rythm"));
-    this.setSiteUrl(props.getProperty("site.url","http://wikicms.bitplan.com"));
+    this.setFrontendUrl(props.getProperty("frontend.url","http://wikicms.bitplan.com"));
   }
 
   /**
@@ -210,6 +210,22 @@ public class BackendWiki extends Mediawiki {
    */
   public boolean isLoggedIn() {
     return loggedIn;
+  }
+
+  public boolean isSmw() {
+    return smw;
+  }
+
+  public void setSmw(boolean smw) {
+    this.smw = smw;
+  }
+
+  public String getWikiId() {
+    return wikiId;
+  }
+
+  public void setWikiId(String wikiId) {
+    this.wikiId = wikiId;
   }
 
   public boolean isRestricted() {
@@ -258,12 +274,12 @@ public class BackendWiki extends Mediawiki {
     this.frame = frame;
   }
 
-  public String getSiteUrl() {
-    return siteUrl;
+  public String getFrontendUrl() {
+    return frontendUrl;
   }
 
-  public void setSiteUrl(String siteUrl) {
-    this.siteUrl = siteUrl;
+  public void setFrontendUrl(String frontendUrl) {
+    this.frontendUrl = frontendUrl;
   }
 
   /**

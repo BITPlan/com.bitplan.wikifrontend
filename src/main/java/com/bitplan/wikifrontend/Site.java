@@ -20,6 +20,8 @@
  */
 package com.bitplan.wikifrontend;
 
+import java.io.File;
+
 /**
  * I represent a Site
  * @author wf
@@ -28,6 +30,24 @@ package com.bitplan.wikifrontend;
 public class Site {
   BackendWiki wiki;
   String siteName;
+  
+  /**
+   * check whether this apache configuration exits
+   * @return the checksymbol
+   */
+  public boolean checkApacheConfiguration() {
+    File apacheFile=new File("/etc/apache2/sites-available/"+siteName+".conf");
+    return apacheFile.exists();
+  }
+  
+  /**
+   * check whether the configuration file exists
+   * @return the check symbol
+   */
+  public boolean checkConfigFile() {
+    File configFile=new File(BackendWiki.getPropertyFileName(siteName));
+    return configFile.exists();
+  }
 
   public String getSiteName() {
     return siteName;
