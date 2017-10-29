@@ -24,38 +24,38 @@
   You might want to copy the backend properties file for site @(site.getSiteName()) to
   <h4>@(BackendWiki.getPropertyFileName(site.getSiteName()))@(check(site.checkConfigFile()))</h4>
   <pre>
-  # 
-  # Wiki backend configuration for @(site.getSiteName())
-  #
-  frontend.url=@(wiki.getFrontendUrl())
-  wiki.base.id=@(wiki.getWikiId())
-  wiki.base.version=@(wiki.getVersion())
-  wiki.base.siteurl=@(wiki.getSiteurl())
-  wiki.base.scriptpath=@(wiki.getScriptPath())
-  wiki.frontend.homepage=@(wiki.getHomePage())
-  wiki.frontend.frame=@(wiki.getFrame())
-  wiki.frontend.category=@(wiki.getCategory())
-  @if(wiki.isSmw()) {
-  wiki.smw=@(wiki.isSmw())
-  }</pre>
+# 
+# Wiki backend configuration for @(site.getSiteName())
+#
+frontend.url=@(wiki.getFrontendUrl())
+wiki.base.id=@(wiki.getWikiId())
+wiki.base.version=@(wiki.getVersion())
+wiki.base.siteurl=@(wiki.getSiteurl())
+wiki.base.scriptpath=@(wiki.getScriptPath())
+wiki.frontend.homepage=@(wiki.getHomePage())
+wiki.frontend.frame=@(wiki.getFrame())
+wiki.frontend.category=@(wiki.getCategory())
+@if(wiki.isSmw()) {
+wiki.smw=@(wiki.isSmw())
+}</pre>
   <h3>Apache2 configuration</h3>
   You might want to copy the apache configuration file for site @(site.getSiteName()) to 
   <h4>/etc/apache2/sites-available/@(site.getSiteName()).conf@(check(site.checkApacheConfiguration()))</h4>
   <pre>
-  #
-  #  WikiFrontEnd configuration for site @(site.getSiteName())
-  #
-  #  Apache redirect to another port
-  #  see http://stackoverflow.com/a/13089668/1497139
-  #
-  &lt;VirtualHost *:80&gt; 
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ServerName www.bitplan.com 
-    #ServerAlias 
-    ProxyPass / http://localhost:@(port)/@(site.getSiteName())/
-    ProxyPassReverse / http://localhost:@(port)/@(site.getSiteName())/
-  &lt;/VirtualHost&gt;</pre>
+#
+#  WikiFrontEnd configuration for site @(site.getSiteName())
+#
+#  Apache redirect to another port
+#  see http://stackoverflow.com/a/13089668/1497139
+#
+&lt;VirtualHost *:80&gt; 
+  ProxyPreserveHost On
+  ProxyRequests Off
+  ServerName @(wiki.getFrontendUrl())
+  #ServerAlias 
+  ProxyPass / http://localhost:@(port)/@(site.getSiteName())/
+  ProxyPassReverse / http://localhost:@(port)/@(site.getSiteName())/
+&lt;/VirtualHost&gt;</pre>
   <h4>enable Apache2 configuration</h4>
   Then enable the configuration with
   <pre>
