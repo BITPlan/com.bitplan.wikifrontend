@@ -40,8 +40,8 @@ import com.bitplan.wikifrontend.SiteManager;
  * @author wf
  *
  */
-@Path("{siteName}/index.php/{pagename}")
-public class Page {
+
+public abstract class Page {
 
   // http://stackoverflow.com/a/5323598/1497139
   @Context

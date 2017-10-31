@@ -55,7 +55,7 @@ public class ServerPage extends TemplateResource {
     if (site == null) {
       return Page.unknownSite(siteName);
     } else {
-      Page page = new Page();
+      Page page = new WikiPage();
       String homePage = site.getWiki().getHomePage();
       Response result = page.getPage(siteName,homePage);
       return result;

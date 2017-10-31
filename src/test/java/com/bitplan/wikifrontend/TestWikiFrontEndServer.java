@@ -33,16 +33,16 @@ import org.junit.Test;
  *
  */
 public class TestWikiFrontEndServer extends TestBase {
-  
+
   @Test
   public void testInit() throws Exception {
     // this test does nothing just checking the Instance
     BackendWiki lwiki = getWiki("wiki");
     assertNotNull(lwiki);
     // check sites
-    SiteManager sm=SiteManager.getInstance();
-    assertEquals(1,sm.siteMap.size());
-    for (Site site:sm.siteMap.values()) {
+    SiteManager sm = SiteManager.getInstance();
+    assertEquals(1, sm.siteMap.size());
+    for (Site site : sm.siteMap.values()) {
       assertNotNull(site.wiki);
     }
   }
@@ -51,25 +51,29 @@ public class TestWikiFrontEndServer extends TestBase {
   public void testExampleServer() throws Exception {
     BackendWiki lwiki = getWiki("wiki");
     assertNotNull(lwiki);
-    String answer = super.getResponseString("text/html", "/wiki/index.php/FrontendTest2016-12-19");
-    if (debug) {
-      LOGGER.log(Level.INFO,answer);
+    String urls[] = { "/wiki/index.php/FrontendTest2016-12-19",
+        "/wiki/FrontendTest2016-12-19" };
+    for (String url : urls) {
+      String answer = super.getResponseString("text/html", url);
+      if (debug) {
+        LOGGER.log(Level.INFO, answer);
+      }
+      String expected = "Testpage as of 2016-12-19";
+      assertTrue(answer.contains(expected));
     }
-    String expected = "Testpage as of 2016-12-19";
-    assertTrue(answer.contains(expected));
   }
-  
+
   @Test
   public void testExampleHomePage() throws Exception {
-    //debug=true;
+    // debug=true;
     BackendWiki lwiki = getWiki("wiki");
     assertNotNull(lwiki);
     String answer = super.getResponseString("text/html", "/wiki/");
     if (debug) {
-      LOGGER.log(Level.INFO,answer);
+      LOGGER.log(Level.INFO, answer);
     }
     String expected = "HolyGrail";
     assertTrue(answer.contains(expected));
   }
- 
+
 }
