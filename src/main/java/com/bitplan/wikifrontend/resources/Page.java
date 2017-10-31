@@ -40,40 +40,46 @@ import com.bitplan.wikifrontend.SiteManager;
  * @author wf
  *
  */
-
-public abstract class Page {
+@Path("{siteName}/{path}")
+public class Page {
 
   // http://stackoverflow.com/a/5323598/1497139
   @Context
   UriInfo uriInfo;
 
   @GET
-  @Path("{subpage}")
-  public Response getSubPage() throws Exception {
+  @Path("{subpath}")
+  public Response getSubPath() throws Exception {
     return getPage();
   }
 
   @GET
-  @Path("{subpage}/{subsubpage}")
-  public Response getSubSubPage() throws Exception {
+  @Path("{subpath}/{subsubpath}")
+  public Response getSubSubPath() throws Exception {
     return getPage();
   }
 
   @GET
-  @Path("{subpage}/{subsubpage}/{subsubsubpage}")
-  public Response getSubSubSubPage() throws Exception {
+  @Path("{subpath}/{subsubpath}/{subsubsubpath}")
+  public Response getSubSubSubPath() throws Exception {
     return getPage();
   }
 
   @GET
-  @Path("{subpage}/{subsubpage}/{subsubsubpage}/{subsubsubsubpage}")
-  public Response getSubSubSubSubPage() throws Exception {
+  @Path("{subpath}/{subsubpath}/{subsubsubpath}/{subsubsubsubpath}")
+  public Response getSubSubSubSubPath() throws Exception {
     return getPage();
   }
 
   @GET
-  @Path("{subpage}/{subsubpage}/{subsubsubpage}/{subsubsubsubpage}/{subsubsubsubpage}")
-  public Response getSubSubSubSubSubPage() throws Exception {
+  @Path("{subpath}/{subsubpath}/{subsubsubpath}/{subsubsubsubpath}/{subsubsubsubpath}")
+  public Response getSubSubSubSubSubPath() throws Exception {
+    return getPage();
+  }
+  
+  @GET
+  @Path("{subpath}/{subsubpath}/{subsubpath}/{subsubsubpath}/{subsubsubsubpath}/{subsubsubsubpath}")
+  public Response getSubSubSubSubSubSubPath() throws Exception {
     return getPage();
   }
 
