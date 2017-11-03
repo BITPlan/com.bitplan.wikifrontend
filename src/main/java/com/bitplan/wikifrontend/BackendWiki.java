@@ -40,6 +40,7 @@ import com.bitplan.mediawiki.japi.api.Property;
 import com.bitplan.mediawiki.japi.api.Query;
 import com.bitplan.mediawiki.japi.user.WikiUser;
 import com.bitplan.smw.PropertyMap;
+import com.bitplan.wikifrontend.resources.SitePageInfo;
 
 /**
  * Mediawiki backend site to be controlled by a wiki Frontend RESTful server
@@ -462,21 +463,25 @@ public class BackendWiki extends Mediawiki {
    * frame the html retrieved the given title using the rythm template for this
    * BackendWiki
    * 
-   * @param title
+   * @param sitePage - the page to frame
    * @return the html code
    * @throws Exception
    */
-  public String frame(String pageTitle) throws Exception {
+  public String frame(SitePageInfo sitePage) throws Exception {
     Map<String, Object> rootMap = new HashMap<String, Object>();
-    rootMap.put("title", pageTitle);
+    rootMap.put("postService", PostManager.getInstance());
+    if (sitePage.getPostToken()!=null) {
+      rootMap.put("postToken", sitePage.getPostToken());
+    }
+    rootMap.put("title", sitePage.getPageTitle());
     if (siteinfo != null)
       rootMap.put("lang", this.siteinfo.getLang());
-    String html = getPageHtml(pageTitle);
+    String html = getPageHtml(sitePage.getPageTitle());
     html = fixMediaWikiHtml(html);
     rootMap.put("content", html);
     String lframe=this.getFrame();
     if (this.smw) {
-      PropertyMap smwprops = this.getSMWProperties(pageTitle);
+      PropertyMap smwprops = this.getSMWProperties(sitePage.getPageTitle());
       if (smwprops.getMap().containsKey("Frame"))
         lframe=smwprops.get("Frame");
       rootMap.put("smwprops", smwprops);

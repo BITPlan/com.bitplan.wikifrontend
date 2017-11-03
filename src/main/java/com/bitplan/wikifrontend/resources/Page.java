@@ -22,15 +22,20 @@ package com.bitplan.wikifrontend.resources;
 
 import java.net.URI;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 
 import com.bitplan.wikifrontend.BackendWiki;
+import com.bitplan.wikifrontend.PostManager;
 import com.bitplan.wikifrontend.Site;
 import com.bitplan.wikifrontend.SiteManager;
 
@@ -82,6 +87,22 @@ public class Page {
   public Response getSubSubSubSubSubSubPath() throws Exception {
     return getPage();
   }
+  
+  @POST
+  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+  @Produces({ "text/html" })
+  public Response handlePost(MultivaluedMap<String, String> formParams) throws Exception {
+    SitePageInfo pageInfo=new SitePageInfo(uriInfo);
+    String postToken=formParams.getFirst("postToken");
+    if (postToken!=null) {
+      PostManager postManager=PostManager.getInstance();
+      if (postManager.handle(postToken,formParams)) {
+        pageInfo.setPostToken(postToken);
+      }
+    }
+    Response result = getPage(pageInfo);
+    return result;
+  }
 
   /**
    * get the Page - as html for frontend pages or redirect to the backend for
@@ -92,47 +113,34 @@ public class Page {
    */
   @GET
   public Response getPage() throws Exception {
-    String path = uriInfo.getPath();
-    String[] parts = path.split("/");
-    if (parts.length<1)
-      return Response.status(500).entity("unsupported path"+path).build();
-    String pageTitle = "";
-    String delim="";
-    for (int i=1;i<parts.length;i++) {
-      pageTitle+=delim+parts[i];
-      delim="/";
-    }
-    String site=parts[0];
-    if (pageTitle.contains("index.php/")) {
-      pageTitle = pageTitle.replaceAll("index.php/", "");
-    }
-    Response result = getPage(site,pageTitle);
+    SitePageInfo pageInfo=new SitePageInfo(uriInfo);
+    Response result = getPage(pageInfo);
     return result;
   }
 
   /**
    * get the page of the given site with the given PageTitle
    * 
-   * @param siteName
-   *          - the name of the site to get the page for
-   * @param pageTitle
+   * @param sitePage - the site and pageTitle
    * @return the Response
    * @throws Exception
    */
-  public Response getPage(String siteName, String pageTitle) throws Exception {
+  public Response getPage(SitePageInfo sitePage) throws Exception {
+    if (sitePage.error!=null)
+      return sitePage.error;
     SiteManager sm = SiteManager.getInstance();
-    Site site = sm.getSite(siteName);
+    Site site = sm.getSite(sitePage.site);
     if (site == null) {
-      return Page.unknownSite(siteName);
+      return Page.unknownSite(sitePage.site);
     } else {
       ResponseBuilder rb = null;
       BackendWiki wiki = site.getWiki();
-      if (wiki.containsCategory(pageTitle, wiki.getCategory())) {
-        String html = wiki.frame(pageTitle);
+      if (wiki.containsCategory(sitePage.getPageTitle(), wiki.getCategory())) {
+        String html = wiki.frame(sitePage);
         rb = Response.ok(html, MediaType.TEXT_HTML);
       } else {
         URI target = new URI(wiki.getSiteurl() + wiki.getScriptPath()
-            + "index.php/" + pageTitle);
+            + "index.php/" + sitePage.getPageTitle());
         rb = Response.seeOther(target);
       }
       return rb.build();

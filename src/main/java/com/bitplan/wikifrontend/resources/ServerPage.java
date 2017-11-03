@@ -57,7 +57,8 @@ public class ServerPage extends TemplateResource {
     } else {
       Page page = new Page();
       String homePage = site.getWiki().getHomePage();
-      Response result = page.getPage(siteName,homePage);
+      SitePageInfo sitePage=new SitePageInfo(siteName,homePage);
+      Response result = page.getPage(sitePage);
       return result;
     }
   }
