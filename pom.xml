@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bitplan.wikifrontend</groupId>
 	<artifactId>com.bitplan.wikifrontend</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>MediaWiki Java RestFUL Frontend</name>
 	<description>Versatile Frontend - page filter and access control as base feature</description>
 	<build>
@@ -108,6 +108,13 @@
 			<groupId>net.sourceforge.htmlcleaner</groupId>
 			<artifactId>htmlcleaner</artifactId>
 			<version>2.18</version>
+		</dependency>
+		<!-- Libraries -->
+		<!--  http://www.simplejavamail.org/#/about -->
+		<dependency>
+			<groupId>org.simplejavamail</groupId>
+			<artifactId>simple-java-mail</artifactId>
+			<version>4.4.5</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -122,6 +122,16 @@ public class BackendWiki extends Mediawiki {
   }
 
   /**
+   * get the property Directory
+   * @return the property Directory
+   */
+  public static File getPropertyDir() {
+    String userPropertiesDirName = System.getProperty("user.home")
+        + "/.wikibackend";
+    return new File(userPropertiesDirName);
+  }
+  
+  /**
    * get the property file name for the given site
    * 
    * @param site
@@ -133,8 +143,7 @@ public class BackendWiki extends Mediawiki {
     if (!site.isEmpty()) {
       delim = "_";
     }
-    String userPropertiesFileName = System.getProperty("user.home")
-        + "/.wikibackend/" + user + delim + site + ".ini";
+    String userPropertiesFileName=getPropertyDir().getPath() +"/"+ user + delim + site + ".ini";
     return userPropertiesFileName;
   }
 
