@@ -65,7 +65,7 @@ public class RythmContext  {
    * 
    * @return
    */
-  private RythmEngine getEngine() {
+  public RythmEngine getEngine() {
     if (engine == null) {
       conf.put("codegen.compact.enabled", false);
       engine = new RythmEngine(conf);

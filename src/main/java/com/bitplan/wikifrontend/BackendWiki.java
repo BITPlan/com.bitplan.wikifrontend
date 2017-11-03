@@ -39,6 +39,7 @@ import com.bitplan.mediawiki.japi.api.Login;
 import com.bitplan.mediawiki.japi.api.Property;
 import com.bitplan.mediawiki.japi.api.Query;
 import com.bitplan.mediawiki.japi.user.WikiUser;
+import com.bitplan.rythm.WikiTemplateResourceLoader;
 import com.bitplan.smw.PropertyMap;
 import com.bitplan.wikifrontend.resources.SitePageInfo;
 
@@ -64,6 +65,7 @@ public class BackendWiki extends Mediawiki {
   private SiteInfo siteinfo;
   String site; // the name of the site
   String frontendUrl; // the frontend url of the site
+  WikiTemplateResourceLoader wikiTemplateResourceLoader;
 
   /**
    * no argument constructor
@@ -487,7 +489,11 @@ public class BackendWiki extends Mediawiki {
       rootMap.put("smwprops", smwprops);
     }
     String template = getTemplate(lframe);
-    String result = RythmContext.getInstance().render(template, rootMap);
+    RythmContext rythmContext = RythmContext.getInstance();
+    if (this.wikiTemplateResourceLoader==null) {
+      wikiTemplateResourceLoader=new WikiTemplateResourceLoader(this,rythmContext);
+    }
+    String result = rythmContext.render(template, rootMap);
     return result;
   }
 
