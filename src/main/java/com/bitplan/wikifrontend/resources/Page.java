@@ -45,49 +45,14 @@ import com.bitplan.wikifrontend.SiteManager;
  * @author wf
  *
  */
-@Path("{siteName}/{path}")
+// https://stackoverflow.com/a/5323598/1497139
+@Path("{siteName}/{path:.*}")
 public class Page {
 
   // http://stackoverflow.com/a/5323598/1497139
   @Context
   UriInfo uriInfo;
 
-  @GET
-  @Path("{subpath}")
-  public Response getSubPath() throws Exception {
-    return getPage();
-  }
-
-  @GET
-  @Path("{subpath}/{subsubpath}")
-  public Response getSubSubPath() throws Exception {
-    return getPage();
-  }
-
-  @GET
-  @Path("{subpath}/{subsubpath}/{subsubsubpath}")
-  public Response getSubSubSubPath() throws Exception {
-    return getPage();
-  }
-
-  @GET
-  @Path("{subpath}/{subsubpath}/{subsubsubpath}/{subsubsubsubpath}")
-  public Response getSubSubSubSubPath() throws Exception {
-    return getPage();
-  }
-
-  @GET
-  @Path("{subpath}/{subsubpath}/{subsubsubpath}/{subsubsubsubpath}/{subsubsubsubpath}")
-  public Response getSubSubSubSubSubPath() throws Exception {
-    return getPage();
-  }
-  
-  @GET
-  @Path("{subpath}/{subsubpath}/{subsubpath}/{subsubsubpath}/{subsubsubsubpath}/{subsubsubsubpath}")
-  public Response getSubSubSubSubSubSubPath() throws Exception {
-    return getPage();
-  }
-  
   @POST
   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
   @Produces({ "text/html" })

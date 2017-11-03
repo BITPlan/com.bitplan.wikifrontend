@@ -68,7 +68,7 @@ public class TestWikiFrontEndServer extends TestBase {
     // debug=true;
     BackendWiki lwiki = getWiki("wiki");
     assertNotNull(lwiki);
-    String answer = super.getResponseString("text/html", "/wiki/");
+    String answer = super.getResponseString("text/html", "/wiki");
     if (debug) {
       LOGGER.log(Level.INFO, answer);
     }
