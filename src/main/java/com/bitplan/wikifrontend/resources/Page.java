@@ -46,7 +46,7 @@ import com.bitplan.wikifrontend.SiteManager;
  *
  */
 // https://stackoverflow.com/a/5323598/1497139
-@Path("{siteName}/{path:.*}")
+@Path("{siteName}/{path:.+}")
 public class Page {
 
   // http://stackoverflow.com/a/5323598/1497139
