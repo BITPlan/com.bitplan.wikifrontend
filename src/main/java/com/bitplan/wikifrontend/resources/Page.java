@@ -101,7 +101,7 @@ public class Page {
       ResponseBuilder rb = null;
       BackendWiki wiki = site.getWiki();
       if (wiki.containsCategory(sitePage.getPageTitle(), wiki.getCategory())) {
-        String html = wiki.frame(sitePage);
+        String html = wiki.frame(sitePage,uriInfo);
         rb = Response.ok(html, MediaType.TEXT_HTML);
       } else {
         URI target = new URI(wiki.getSiteurl() + wiki.getScriptPath()

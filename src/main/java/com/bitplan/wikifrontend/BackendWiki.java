@@ -30,6 +30,8 @@ import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.core.UriInfo;
+
 import org.htmlcleaner.TagNode;
 
 import com.bitplan.mediawiki.japi.Mediawiki;
@@ -475,11 +477,13 @@ public class BackendWiki extends Mediawiki {
    * BackendWiki
    * 
    * @param sitePage - the page to frame
+   * @param uriInfo 
    * @return the html code
    * @throws Exception
    */
-  public String frame(SitePageInfo sitePage) throws Exception {
+  public String frame(SitePageInfo sitePage, UriInfo uriInfo) throws Exception {
     Map<String, Object> rootMap = new HashMap<String, Object>();
+    rootMap.put("uriInfo", uriInfo);
     rootMap.put("postService", PostManager.getInstance());
     if (sitePage.getPostToken()!=null) {
       rootMap.put("postToken", sitePage.getPostToken());
