@@ -361,6 +361,23 @@ public class BackendWiki extends Mediawiki {
   }
 
   /**
+   * fix the given attribute of the given node if the value starts with the given prefix
+   * e.g. in an img node the src attribute might be fixed if it starts with "/images"
+   * @param node
+   * @param attribute
+   * @param prefix
+   * @return the original attribute Value
+   */
+  public String fixNode(TagNode node, String attribute, String prefix) {
+    String attributeValue = node.getAttributeByName(attribute);
+    if (attributeValue != null && attributeValue.startsWith(prefix)) {
+      node.removeAttribute(attribute);
+      node.addAttribute(attribute, this.getBaseUrl() + attributeValue);
+    }
+    return attributeValue;
+  }
+  
+  /**
    * make sure img tags with src pointing to local /images are rewritten to
    * point to original
    * 
@@ -371,11 +388,7 @@ public class BackendWiki extends Mediawiki {
     // fix images
     List<TagNode> imgNodes = Html.getXpathNodes(root, "//img");
     for (TagNode img : imgNodes) {
-      String src = img.getAttributeByName("src");
-      if (src != null && src.startsWith("/images")) {
-        img.removeAttribute("src");
-        img.addAttribute("src", this.getBaseUrl() + src);
-      }
+      String src=fixNode(img,"src","/images");
       String srcset = img.getAttributeByName("srcset");
       if (srcset != null) {
         String newsrcset = "";
@@ -407,10 +420,23 @@ public class BackendWiki extends Mediawiki {
   public void fixVideos(TagNode root) throws Exception {
     List<TagNode> videoSources = Html.getXpathNodes(root, "//video/source");
     for (TagNode video : videoSources) {
-      String src = video.getAttributeByName("src");
-      if (src != null && src.startsWith("/videos")) {
-        video.removeAttribute("src");
-        video.addAttribute("src", this.getBaseUrl() + src);
+      fixNode(video,"src","/videos");
+    }
+  }
+  
+  /**
+   * fix object tags e.g for PDF display
+   * 
+   * @param root
+   * @throws Exception
+   */
+  public void fixObjects(TagNode root) throws Exception {
+    List<TagNode> objectNodes = Html.getXpathNodes(root, "//object");
+    for (TagNode objectNode : objectNodes) {
+      fixNode(objectNode,"data","/images");
+      List<TagNode> anchorNodes = Html.getXpathNodes(objectNode, "//a");
+      for (TagNode anchorNode : anchorNodes) {
+        fixNode(anchorNode,"href","/images");
       }
     }
   }
@@ -463,6 +489,7 @@ public class BackendWiki extends Mediawiki {
     TagNode root = Html.getDom(html);
     fixImages(root);
     fixVideos(root);
+    fixObjects(root);
     removeEditSections(root);
     this.removeTagNode(root, "head");
     this.removeTagNode(root, "body");
