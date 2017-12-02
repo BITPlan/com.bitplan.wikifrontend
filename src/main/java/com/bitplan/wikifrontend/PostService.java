@@ -23,7 +23,7 @@ package com.bitplan.wikifrontend;
 import javax.ws.rs.core.MultivaluedMap;
 
 /**
- * 
+ * interface to PostManager - allows to get the POST data 
  * @author wf
  *
  */
