@@ -23,6 +23,7 @@ package com.bitplan.wikifrontend.rest;
 import java.util.logging.Logger;
 
 import com.bitplan.rest.RestServerImpl;
+import com.bitplan.rest.clicks.ClickFilterProvider;
 import com.bitplan.wikifrontend.SiteManager;
 
 
@@ -51,6 +52,9 @@ public class WikiFrontendServer extends RestServerImpl {
     // setup resources from the given packages
     String packages="com.bitplan.wikifrontend.resources;";
     settings.setPackages(packages);
+    String[] filters= {ClickFilterProvider.class.getName()};
+    // String[] filters = settings.getContainerRequestFilters();
+    settings.setContainerRequestFilters(filters);
    }
   
   /**
