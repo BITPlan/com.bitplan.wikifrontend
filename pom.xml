@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bitplan.wikifrontend</groupId>
 	<artifactId>com.bitplan.wikifrontend</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>MediaWiki Java RestFUL Frontend</name>
 	<description>Versatile Frontend - page filter and access control as base feature</description>
 	<properties>

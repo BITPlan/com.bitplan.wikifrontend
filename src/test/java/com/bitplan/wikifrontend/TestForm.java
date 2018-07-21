@@ -304,7 +304,7 @@ public class TestForm {
      * @param formParams
      */
     public Captcha(MultivaluedMap<String, String> formParams, boolean de) {
-      if (formParams.containsKey("expected")) {
+      if (formParams!=null && formParams.containsKey("expected")) {
         expected = formParams.getFirst("expected");
         task = formParams.getFirst("task");
       } else {
@@ -317,7 +317,8 @@ public class TestForm {
       }
       // not quite ok since we have the language preselected
       fields.add(new TextField("captcha", task, task, "question-sign", 1));
-      fields.add(new HiddenField("expected", "" + expected));
+      fields.add(new HiddenField("task", task));
+      fields.add(new HiddenField("expected", expected));
       SelectField robotField = new SelectField("whatami", "What am i?",
           "Was bin ich?", "Human", "Mensch", "book", 0);
       String[] robots_en = { "Human", "Robot" };
