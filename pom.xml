@@ -6,6 +6,9 @@
 	<version>0.0.2</version>
 	<name>MediaWiki Java RestFUL Frontend</name>
 	<description>Versatile Frontend - page filter and access control as base feature</description>
+	<properties>
+		<junit4.version>4.11</junit4.version>
+	</properties>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
@@ -72,6 +75,19 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- Junit test framework -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit4.version}</version>
+		</dependency>
+		<!-- javax.ws.rs.core e.g. Request -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>jsr311-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- simplerest -->
 		<dependency>
 			<groupId>com.bitplan.rest</groupId>
@@ -110,11 +126,17 @@
 			<version>2.18</version>
 		</dependency>
 		<!-- Libraries -->
-		<!--  http://www.simplejavamail.org/#/about -->
+		<!-- http://www.simplejavamail.org/#/about -->
 		<dependency>
 			<groupId>org.simplejavamail</groupId>
 			<artifactId>simple-java-mail</artifactId>
 			<version>4.4.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.ibm.icu/icu4j -->
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>62.1</version>
 		</dependency>
 	</dependencies>
 </project>
