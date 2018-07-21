@@ -63,6 +63,9 @@ public class Page {
       PostManager postManager=PostManager.getInstance();
       if (postManager.handle(postToken,formParams)) {
         pageInfo.setPostToken(postToken);
+      } else {
+        // the token is not valid - there is something fishy going on 
+        return Response.noContent().build();
       }
     }
     Response result = getPage(pageInfo);

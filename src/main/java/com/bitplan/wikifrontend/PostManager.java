@@ -34,14 +34,15 @@ import javax.ws.rs.core.MultivaluedMap;
 public class PostManager implements PostService {
   private static PostManager instance;
   Map<String,MultivaluedMap<String, String>> postMap=new HashMap<String,MultivaluedMap<String, String>>();
-  Map<String,String> tokenMap=new HashMap<String,String>();
+  private String managerToken;
   
   /**
    * private constructor - this is a singleton
    */
   private PostManager() {
-    
+    managerToken=UUID.randomUUID().toString();
   }
+  
   public static PostManager getInstance() {
     if (instance==null)
       instance=new PostManager();
@@ -50,9 +51,11 @@ public class PostManager implements PostService {
   
   @Override
   public String getPostToken() {
+    // create a unique post token
     //  https://stackoverflow.com/questions/1389736/how-do-i-create-a-unique-id-in-java
     String postToken=UUID.randomUUID().toString();
-    tokenMap.put(postToken, postToken);
+    // prepend the managerToken
+    postToken=managerToken+"."+postToken;
     return postToken;
   }
   
@@ -63,7 +66,6 @@ public class PostManager implements PostService {
    */
   public MultivaluedMap<String, String> getPostData(String postToken) {
     MultivaluedMap<String, String> result = postMap.get(postToken);
-    tokenMap.remove(postToken);
     postMap.remove(postToken);
     return result;
   }
@@ -74,15 +76,15 @@ public class PostManager implements PostService {
    * 
    * @param postToken
    * @param formParams
-   * @return true if the postToken is valid/known fals if not
+   * @return true if the postToken is valid/known false if not
    */
   public boolean handle(String postToken,
       MultivaluedMap<String, String> formParams) {
-    if (tokenMap.containsKey(postToken)) {
+    if (postToken.startsWith(managerToken)) {
       postMap.put(postToken, formParams);
       return true;
     }
-    return false;
+    return false; // this is not a valid post Token
   }
  
 }
