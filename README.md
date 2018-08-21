@@ -1,21 +1,41 @@
-# com.bitplan.wikifrontend
-Mediawiki Content Management System frontend
+### com.bitplan.wikifrontend
+[Versatile MediaWiki Frontend - page filter and access control as base feature](http://wikicms.bitplan.com/) 
 
-[![Build Status](https://travis-ci.org/BITPlan/com.bitplan.wikifrontend.svg?branch=master)](https://travis-ci.org/BITPlan/com.bitplan.wikifrontend)
-### github repository
-* repository: https://github.com/BITPlan/com.bitplan.wikifrontend
-* issues: https://github.com/BITPlan/com.bitplan.wikifrontend/issues
+[![Travis (.org)](https://img.shields.io/travis/BITPlan/com.bitplan.wikifrontend.svg)](https://travis-ci.org/BITPlan/com.bitplan.wikifrontend)
+[![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.wikifrontend/com.bitplan.wikifrontend.svg)](https://search.maven.org/artifact/com.bitplan.wikifrontend/com.bitplan.wikifrontend/0.0.4/jar)
+[![GitHub issues](https://img.shields.io/github/issues/BITPlan/com.bitplan.wikifrontend.svg)](https://github.com/BITPlan/com.bitplan.wikifrontend/issues)
+[![GitHub issues](https://img.shields.io/github/issues-closed/BITPlan/com.bitplan.wikifrontend.svg)](https://github.com/BITPlan/com.bitplan.wikifrontend/issues/?q=is%3Aissue+is%3Aclosed)
+[![GitHub](https://img.shields.io/github/license/BITPlan/com.bitplan.wikifrontend.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![BITPlan](http://wiki.bitplan.com/images/wiki/thumb/3/38/BITPlanLogoFontLessTransparent.png/198px-BITPlanLogoFontLessTransparent.png)](http://www.bitplan.com)
 
 ### Documentation
-* http://wikicms.bitplan.com/
+* [Wiki](http://wikicms.bitplan.com/)
+* [com.bitplan.wikifrontend Project pages](https://BITPlan.github.io/com.bitplan.wikifrontend)
+* [Javadoc](https://BITPlan.github.io/com.bitplan.wikifrontend/apidocs/index.html)
+* [Test-Report](https://BITPlan.github.io/com.bitplan.wikifrontend/surefire-report.html)
 
-### License
-https://www.apache.org/licenses/LICENSE-2.0
+### Maven dependency
 
-### Creator 
-[![BITPlan](http://wiki.bitplan.com/images/wiki/thumb/8/87/BITPlanLogo2012.svg/200px-BITPlanLogo2012.svg.png)](http://web.bitplan.com)
+Maven dependency
+```xml
+<dependency>
+  <groupId>com.bitplan.wikifrontend</groupId>
+  <artifactId>com.bitplan.wikifrontend</artifactId>
+  <version>0.0.4</version>
+</dependency>
+```
 
+[Current release at repo1.maven.org](http://repo1.maven.org/maven2/com/bitplan/wikifrontend/com.bitplan.wikifrontend/0.0.4/)
+
+### How to build
+```
+git clone https://github.com/BITPlan/com.bitplan.wikifrontend
+cd com.bitplan.wikifrontend
+mvn install
+```
 ### Version History
 * 2017-09-15 0.0.1 - initial release
 * 2017-09-16       - fixes #1
 * 2017-11-03 0.0.2 - fixes #2,#3,#4,#5,#6,#7
+* 2018-08-21 0.0.4 - improves README
+

@@ -1,30 +1,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bitplan.pom</groupId>
+		<artifactId>com.bitplan.pom</artifactId>
+		<version>0.0.6</version>
+		<relativePath>../com.bitplan.pom/pom.xml</relativePath>
+	</parent>
 	<groupId>com.bitplan.wikifrontend</groupId>
 	<artifactId>com.bitplan.wikifrontend</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<name>MediaWiki Java RestFUL Frontend</name>
-	<description>Versatile Frontend - page filter and access control as base feature</description>
+	<description>Versatile MediaWiki Frontend - page filter and access control as base feature</description>
 	<properties>
+	    <!-- for parent pom to work -->
+		<github.project>com.bitplan.wikifrontend</github.project>
+		<!-- for README generation -->
+		<documentation.wiki>http://wikicms.bitplan.com/</documentation.wiki>
 		<junit4.version>4.11</junit4.version>
 	</properties>
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-				<configuration>
-					<source />
-					<target />
-				</configuration>
-			</plugin>
+		<plugins>			
 			<!-- create jar -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.5</version>
+				<version>${maven-jar-plugin.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -34,25 +35,12 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin>
-				<!-- http://code.mycila.com/license-maven-plugin/ -->
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.9.0</version>
-				<configuration>
-					<header>src/etc/header.txt</header>
-					<strictCheck>true</strictCheck>
-					<includes>
-						<include>src/**/*.java</include>
-					</includes>
-				</configuration>
-			</plugin>
 			<!-- create fat jar -->
 			<!-- http://stackoverflow.com/a/16222971 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
+				<version>${maven-assembly-plugin.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -85,13 +73,13 @@
 		<dependency>
 			<groupId>com.bitplan.rest</groupId>
 			<artifactId>com.bitplan.simplerest</artifactId>
-			<version>0.0.10</version>
+			<version>0.0.13</version>
 		</dependency>
 		<!-- simplerest TestRestserver -->
 		<dependency>
 			<groupId>com.bitplan.rest</groupId>
 			<artifactId>com.bitplan.simplerest</artifactId>
-			<version>0.0.10</version>
+			<version>0.0.13</version>
 			<type>test-jar</type>
 		</dependency>
 		<!-- simplerest -api -->
