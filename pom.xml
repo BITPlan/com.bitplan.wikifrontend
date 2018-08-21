@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -13,14 +14,14 @@
 	<name>MediaWiki Java RestFUL Frontend</name>
 	<description>Versatile MediaWiki Frontend - page filter and access control as base feature</description>
 	<properties>
-	    <!-- for parent pom to work -->
+		<!-- for parent pom to work -->
 		<github.project>com.bitplan.wikifrontend</github.project>
 		<!-- for README generation -->
 		<documentation.wiki>http://wikicms.bitplan.com/</documentation.wiki>
 		<junit4.version>4.11</junit4.version>
 	</properties>
 	<build>
-		<plugins>			
+		<plugins>
 			<!-- create jar -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -48,7 +49,10 @@
 						</manifest>
 					</archive>
 					<archiveBaseDirectory>${project.basedir}</archiveBaseDirectory>
-					<descriptor>src/assembly/depmerge.xml</descriptor>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<!-- <descriptor>src/assembly/depmerge.xml</descriptor> -->
 				</configuration>
 				<executions>
 					<execution>
