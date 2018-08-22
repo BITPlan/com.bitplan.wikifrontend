@@ -10,10 +10,6 @@
 
 ### Documentation
 * [Wiki](http://wikicms.bitplan.com/)
-* [com.bitplan.wikifrontend Project pages](https://BITPlan.github.io/com.bitplan.wikifrontend)
-* [Javadoc](https://BITPlan.github.io/com.bitplan.wikifrontend/apidocs/index.html)
-* [Test-Report](https://BITPlan.github.io/com.bitplan.wikifrontend/surefire-report.html)
-
 ### Maven dependency
 
 Maven dependency
