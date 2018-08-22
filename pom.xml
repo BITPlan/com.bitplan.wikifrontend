@@ -18,7 +18,6 @@
 		<github.project>com.bitplan.wikifrontend</github.project>
 		<!-- for README generation -->
 		<documentation.wiki>http://wikicms.bitplan.com/</documentation.wiki>
-		<junit4.version>4.11</junit4.version>
 	</properties>
 	<build>
 		<plugins>
