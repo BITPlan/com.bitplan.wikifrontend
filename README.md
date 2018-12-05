@@ -1,5 +1,5 @@
 ### com.bitplan.wikifrontend
-[Versatile MediaWiki Frontend - page filter and access control as base feature](http://wikicms.bitplan.com/) 
+[Versatile MediaWiki Frontend - page filter and access control as base feature](http://wikicms.bitplan.com/)
 
 [![Travis (.org)](https://img.shields.io/travis/BITPlan/com.bitplan.wikifrontend.svg)](https://travis-ci.org/BITPlan/com.bitplan.wikifrontend)
 [![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.wikifrontend/com.bitplan.wikifrontend.svg)](https://search.maven.org/artifact/com.bitplan.wikifrontend/com.bitplan.wikifrontend/0.0.4/jar)
@@ -17,6 +17,7 @@
 
 Maven dependency
 ```xml
+<!-- Versatile MediaWiki Frontend - page filter and access control as base feature http://wikicms.bitplan.com/ -->
 <dependency>
   <groupId>com.bitplan.wikifrontend</groupId>
   <artifactId>com.bitplan.wikifrontend</artifactId>
@@ -38,4 +39,4 @@ mvn install
 * 2017-11-03 0.0.2 - fixes #2,#3,#4,#5,#6,#7
 * 2018-07-21 0.0.3 - fixes #8,#9
 * 2018-08-21 0.0.4 - improves README
-
+* 2018-12-05 0.0.5 - fixes #10

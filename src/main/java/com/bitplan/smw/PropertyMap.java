@@ -125,7 +125,7 @@ public class PropertyMap {
     return Integer.parseInt(dataitem.getItem());
   }
 
-  Pattern hashEnd = Pattern.compile("^(.*)(#.#)$");
+  Pattern hashEnd = Pattern.compile("^(.*)(#[0-9]+#*)$");
 
   /**
    * get the string for the given key

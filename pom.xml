@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.bitplan.wikifrontend</groupId>
 	<artifactId>com.bitplan.wikifrontend</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<name>MediaWiki Java RestFUL Frontend</name>
 	<description>Versatile MediaWiki Frontend - page filter and access control as base feature</description>
 	<properties>
