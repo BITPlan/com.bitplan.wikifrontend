@@ -2,7 +2,7 @@
 [Versatile MediaWiki Frontend - page filter and access control as base feature](http://wikicms.bitplan.com/)
 
 [![Travis (.org)](https://img.shields.io/travis/BITPlan/com.bitplan.wikifrontend.svg)](https://travis-ci.org/BITPlan/com.bitplan.wikifrontend)
-[![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.wikifrontend/com.bitplan.wikifrontend.svg)](https://search.maven.org/artifact/com.bitplan.wikifrontend/com.bitplan.wikifrontend/0.0.4/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.wikifrontend/com.bitplan.wikifrontend.svg)](https://search.maven.org/artifact/com.bitplan.wikifrontend/com.bitplan.wikifrontend/0.0.5/jar)
 [![GitHub issues](https://img.shields.io/github/issues/BITPlan/com.bitplan.wikifrontend.svg)](https://github.com/BITPlan/com.bitplan.wikifrontend/issues)
 [![GitHub issues](https://img.shields.io/github/issues-closed/BITPlan/com.bitplan.wikifrontend.svg)](https://github.com/BITPlan/com.bitplan.wikifrontend/issues/?q=is%3Aissue+is%3Aclosed)
 [![GitHub](https://img.shields.io/github/license/BITPlan/com.bitplan.wikifrontend.svg)](https://www.apache.org/licenses/LICENSE-2.0)
@@ -21,11 +21,11 @@ Maven dependency
 <dependency>
   <groupId>com.bitplan.wikifrontend</groupId>
   <artifactId>com.bitplan.wikifrontend</artifactId>
-  <version>0.0.4</version>
+  <version>0.0.5</version>
 </dependency>
 ```
 
-[Current release at repo1.maven.org](http://repo1.maven.org/maven2/com/bitplan/wikifrontend/com.bitplan.wikifrontend/0.0.4/)
+[Current release at repo1.maven.org](http://repo1.maven.org/maven2/com/bitplan/wikifrontend/com.bitplan.wikifrontend/0.0.5/)
 
 ### How to build
 ```
