@@ -152,7 +152,7 @@ public class BackendWiki extends Mediawiki {
   /**
    * Reads the properties from the configuration file
    * 
-   * @return
+   * @return the properties
    * @throws Exception
    */
   public Properties getConfigProperties() throws Exception {
@@ -185,9 +185,9 @@ public class BackendWiki extends Mediawiki {
   }
 
   /**
-   * return the WikUser
+   * return the WikiUser
    * 
-   * @return
+   * @return the WikiUser
    */
   public WikiUser getUser() {
     if (wikiUser == null) {
@@ -327,7 +327,7 @@ public class BackendWiki extends Mediawiki {
    * 
    * @param content
    * @param categoryName
-   * @return
+   * @return true if the category fits the given categoryName
    * @throws Exception
    */
   public boolean checkCategory(String content, String categoryName)
@@ -350,7 +350,7 @@ public class BackendWiki extends Mediawiki {
   /**
    * get the base url
    * 
-   * @return
+   * @return the baseurl of this site
    */
   public String getBaseUrl() {
     String url = this.getSiteurl() + this.getScriptPath();

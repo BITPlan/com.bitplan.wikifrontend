@@ -44,7 +44,7 @@ public class Html {
 	/**
 	 * get a cleaner with extended properties
 	 * 
-	 * @return
+	 * @return the preconfigured HtmlCleaner
 	 */
 	// @SuppressWarnings("deprecation")
 	public static HtmlCleaner getCleaner() {
@@ -68,9 +68,9 @@ public class Html {
 	}
 
 	/**
-	 * get the DOM for the given url
+	 * get the DOM for the given html
 	 * 
-	 * @param url
+	 * @param html
 	 * @return the DOM
 	 * @throws Exception
 	 */
@@ -116,7 +116,7 @@ public class Html {
 	 * get XpathNodes for the given Objects
 	 * 
 	 * @param objects
-	 * @return
+	 * @return the list of TagNodes
 	 */
 	public static List<TagNode> getXpathNodes(Object[] objects) {
 		List<TagNode> nodes = new ArrayList<TagNode>();
@@ -134,7 +134,7 @@ public class Html {
 	 * 
 	 * @param node
 	 * @param xpath
-	 * @return
+	 * @return the list of TagNodes
 	 * @throws Exception
 	 */
 	public static List<TagNode> getXpathNodes(TagNode node, String xpath)

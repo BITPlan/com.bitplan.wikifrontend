@@ -45,7 +45,7 @@ public class RythmContext  {
   Map<String, Object> conf = new HashMap<String, Object>();
   /**
    * set the template Root
-   * @see http://rythmengine.org/doc/configuration.md#home_template_dir
+   * @see <a href="http://rythmengine.org/doc/configuration.md#home_template_dir">Rythm doc home_template_dir</a>
    * @param path
    */
   public void setTemplateRoot(String path) {
@@ -63,7 +63,7 @@ public class RythmContext  {
   /**
    * get the Rythm engine
    * 
-   * @return
+   * @return the Rythm engine
    */
   public RythmEngine getEngine() {
     if (engine == null) {
@@ -78,7 +78,7 @@ public class RythmContext  {
    * 
    * @param template
    * @param rootMap
-   * @return
+   * @return the string render result
    * @throws Exception
    */
   public String render(File template, Map<String, Object> rootMap)
@@ -92,7 +92,7 @@ public class RythmContext  {
    * render with the given template
    * @param template
    * @param rootMap
-   * @return
+   * @return the string render result
    * @throws Exception
    */
   public String render(String template, Map<String, Object> rootMap)

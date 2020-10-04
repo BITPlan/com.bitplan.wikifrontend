@@ -76,7 +76,7 @@ public class PropertyMap {
    * get the dataitem
    * 
    * @param key
-   * @return
+   * @return the value of the dataitem
    */
   public String get(String key) {
     String result = "";
