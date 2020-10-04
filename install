@@ -1,0 +1,4 @@
+#!/bin/bash
+# install script
+# WF 2020-10-04
+mvn install -D skipTests -D gpg.skip
