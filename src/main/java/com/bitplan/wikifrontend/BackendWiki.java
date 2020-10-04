@@ -191,7 +191,7 @@ public class BackendWiki extends Mediawiki {
    */
   public WikiUser getUser() {
     if (wikiUser == null) {
-      wikiUser = WikiUser.getUser(wikiId, super.getSiteurl());
+      wikiUser = WikiUser.getUser(wikiId);
     }
     return wikiUser;
   }

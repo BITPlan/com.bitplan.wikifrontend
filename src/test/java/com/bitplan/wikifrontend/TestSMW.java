@@ -43,7 +43,7 @@ public class TestSMW extends TestBase {
     wiki.setScriptPath("/w");
     wiki.wikiId="smw";
     PropertyMap props = wiki.getSMWProperties(pageTitle);
-    assertEquals(18,props.size());
+    assertEquals(20,props.size());
     debug=true;
     if (debug) {
       for (String key:props.keySet()) {
