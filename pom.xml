@@ -108,7 +108,7 @@
 		<dependency>
 			<groupId>com.bitplan</groupId>
 			<artifactId>mediawiki-japi</artifactId>
-			<version>0.1.05</version>
+			<version>0.1.06</version>
 		</dependency>
 		<!-- HTML Cleaner for html parsing and xpath handling -->
 		<dependency>
