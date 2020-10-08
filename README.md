@@ -1,8 +1,9 @@
 ### com.bitplan.wikifrontend
-[Versatile MediaWiki Frontend - page filter and access control as base feature](http://wikicms.bitplan.com/)
+[Versatile MediaWiki Content Management System Frontend - page filter and access control as base feature](http://wikicms.bitplan.com/)
 
 [![Travis (.org)](https://img.shields.io/travis/BITPlan/com.bitplan.wikifrontend.svg)](https://travis-ci.org/BITPlan/com.bitplan.wikifrontend)
-[![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.wikifrontend/com.bitplan.wikifrontend.svg)](https://search.maven.org/artifact/com.bitplan.wikifrontend/com.bitplan.wikifrontend/0.0.5/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.wikifrontend/com.bitplan.wikifrontend.svg)](https://search.maven.org/artifact/com.bitplan.wikifrontend/com.bitplan.wikifrontend/0.0.6/jar)
+
 [![GitHub issues](https://img.shields.io/github/issues/BITPlan/com.bitplan.wikifrontend.svg)](https://github.com/BITPlan/com.bitplan.wikifrontend/issues)
 [![GitHub issues](https://img.shields.io/github/issues-closed/BITPlan/com.bitplan.wikifrontend.svg)](https://github.com/BITPlan/com.bitplan.wikifrontend/issues/?q=is%3Aissue+is%3Aclosed)
 [![GitHub](https://img.shields.io/github/license/BITPlan/com.bitplan.wikifrontend.svg)](https://www.apache.org/licenses/LICENSE-2.0)
@@ -17,15 +18,15 @@
 
 Maven dependency
 ```xml
-<!-- Versatile MediaWiki Frontend - page filter and access control as base feature http://wikicms.bitplan.com/ -->
+<!-- Versatile MediaWiki Content Management System Frontend - page filter and access control as base feature http://wikicms.bitplan.com/ -->
 <dependency>
   <groupId>com.bitplan.wikifrontend</groupId>
   <artifactId>com.bitplan.wikifrontend</artifactId>
-  <version>0.0.5</version>
+  <version>0.0.6</version>
 </dependency>
 ```
 
-[Current release at repo1.maven.org](http://repo1.maven.org/maven2/com/bitplan/wikifrontend/com.bitplan.wikifrontend/0.0.5/)
+[Current release at repo1.maven.org](https://repo1.maven.org/maven2/com/bitplan/wikifrontend/com.bitplan.wikifrontend/0.0.6/)
 
 ### How to build
 ```
@@ -40,3 +41,4 @@ mvn install
 * 2018-07-21 0.0.3 - fixes #8,#9
 * 2018-08-21 0.0.4 - improves README
 * 2018-12-05 0.0.5 - fixes #10
+* 2020-10-08 0.0.6 - fixes #11 - MediaWiki 1.35 support
