@@ -67,7 +67,7 @@ public class TestWikiFrontEnd extends TestBase {
     assertEquals("http://wiki.bitplan.com",
         props.getProperty("wiki.base.siteurl"));
     assertEquals("/", props.getProperty("wiki.base.scriptpath"));
-    assertEquals("1.27.3", props.getProperty("wiki.base.version"));
+    assertEquals("1.35.0", props.getProperty("wiki.base.version"));
     assertEquals("wiki", props.getProperty("wiki.base.id"));
     assertEquals("frontend", props.getProperty("wiki.frontend.category"));
     assertEquals("MediaWiki:Frame.rythm",
