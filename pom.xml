@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.bitplan.wikifrontend</groupId>
 	<artifactId>com.bitplan.wikifrontend</artifactId>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<name>MediaWiki Java RestFUL CMS Frontend</name>
 	<description>Versatile MediaWiki Content Management System Frontend - page filter and access control as base feature</description>
 	<properties>
@@ -108,7 +108,7 @@
 		<dependency>
 			<groupId>com.bitplan</groupId>
 			<artifactId>mediawiki-japi</artifactId>
-			<version>0.2.0</version>
+			<version>0.2.1</version>
 		</dependency>
 		<!-- HTML Cleaner for html parsing and xpath handling -->
 		<dependency>
