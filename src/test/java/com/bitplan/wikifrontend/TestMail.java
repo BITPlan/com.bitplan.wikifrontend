@@ -21,10 +21,10 @@
 package com.bitplan.wikifrontend;
 
 import org.junit.Ignore;
-import org.junit.Test;
-import org.simplejavamail.email.Email;
+import org.simplejavamail.api.email.Email;
+import org.simplejavamail.api.mailer.Mailer;
 import org.simplejavamail.email.EmailBuilder;
-import org.simplejavamail.mailer.Mailer;
+
 import com.bitplan.mail.SimpleMail;
 
 /**
@@ -49,13 +49,13 @@ public class TestMail {
     Mailer mailer=SimpleMail.getMailer();
     if (mailer!=null) {
       // see http://www.simplejavamail.org/#/features
-      Email email = new EmailBuilder()
+      Email email = EmailBuilder.startingBlank()
           .from("Michel Baker", "m.baker@mbakery.com")
           .to("mom", "jean.baker@hotmail.com")
           .to("dad", "StevenOakly1963@hotmail.com")
-          .subject("My Bakery is finally open!")
-          .text("Mom, Dad. We did the opening ceremony of our bakery!!!")
-          .build();
+          .withSubject("My Bakery is finally open!")
+          .withPlainText("Mom, Dad. We did the opening ceremony of our bakery!!!")
+          .buildEmail();
       mailer.sendMail(email);
       System.out.println("mail sent");
     }

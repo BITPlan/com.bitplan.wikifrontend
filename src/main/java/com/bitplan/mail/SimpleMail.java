@@ -24,7 +24,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Properties;
 
-import org.simplejavamail.mailer.Mailer;
+import org.simplejavamail.api.mailer.Mailer;
+import org.simplejavamail.api.mailer.config.TransportStrategy;
+import org.simplejavamail.mailer.MailerBuilder;
 
 import com.bitplan.wikifrontend.BackendWiki;
 
@@ -45,9 +47,12 @@ public class SimpleMail {
       props.load(new FileReader(propertyFile));
       String server = props.getProperty("mail.server");
       String username = props.getProperty("mail.username");
-      int port = Integer.parseInt(props.getProperty("mail.port", "25"));
+      int port = Integer.parseInt(props.getProperty("mail.port", "587"));
       String password = props.getProperty("mail.password");
-      Mailer mailer = new Mailer(server, port, username, password);
+      Mailer mailer = MailerBuilder
+    	      .withSMTPServer(server, port, username, password)
+    	      .withTransportStrategy(TransportStrategy.SMTP_TLS)
+    	      .buildMailer();
       return mailer;
     } else
       return null;
